@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ru" data-vue-meta="%7B%22lang%22:%7B%22ssr%22:%22ru%22%7D%7D">
+<head >
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+  <meta name="referrer" content="unsafe-url">
+  <title>Как правильно лгать с помощью статистики / Хабр</title>
+  <style>
+    /* cyrillic-ext */
+    @font-face {
+      font-family: 'Fira Sans';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url(https://fonts.gstatic.com/s/firasans/v11/va9B4kDNxMZdWfMOD5VnZKveSxf6TF0.woff2) format('woff2');
+      unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+    }
+
+    /* cyrillic */
+    @font-face {
+      font-family: 'Fira Sans';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url(https://fonts.gstatic.com/s/firasans/v11/va9B4kDNxMZdWfMOD5VnZKveQhf6TF0.woff2) format('woff2');
+      unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+    }
+
+    /* latin-ext */
+    @font-face {
+      font-family: 'Fira Sans';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url(https://fonts.gstatic.com/s/firasans/v11/va9B4kDNxMZdWfMOD5VnZKveSBf6TF0.woff2) format('woff2');
+      unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+
+    /* latin */
+    @font-face {
+      font-family: 'Fira Sans';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url(https://fonts.gstatic.com/s/firasans/v11/va9B4kDNxMZdWfMOD5VnZKveRhf6.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    /* non-breaking hyphen */
+    @font-face {
+      font-family: 'Fira Sans';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url(https://fonts.gstatic.com/l/font?kit=KFOlCnqEu92Fr1MmEU9vBh0_IsHAlmrO6g&skey=ee881451c540fdec&v=v29) format('woff2');
+      unicode-range: U+02011;
+    }
+  </style>
+  <link rel="preload" href="https://assets.habr.com/habr-web/css/chunk-vendors.76652d4b.css" as="style"><link rel="preload" href="https://assets.habr.com/habr-web/js/chunk-vendors.47cb1c36.js" as="script"><link rel="preload" href="https://assets.habr.com/habr-web/css/app.1dedf86a.css" as="style"><link rel="preload" href="https://assets.habr.com/habr-web/js/app.816a4fc7.js" as="script">
+  <link rel="stylesheet" href="https://assets.habr.com/habr-web/css/chunk-vendors.76652d4b.css"><link rel="stylesheet" href="https://assets.habr.com/habr-web/css/app.1dedf86a.css">
+  <script>window.i18nFetch = new Promise((res, rej) => {
+          const xhr = new XMLHttpRequest();
+          xhr.open('GET', '/js/i18n/ru-compiled.0061015903529d4772077370ff86f753.json');
+          xhr.responseType = 'json';
+          xhr.onload = function(e) {
+            if (this.status === 200) {
+              res({ru: xhr.response});
+            } else {
+              rej(e);
+            }
+          };
+          xhr.send();
+        });</script>
+  
+  <script data-vue-meta="ssr" type="application/ld+json" data-vmid="ldjson-schema">{"@context":"http:\/\/schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/habr.com\/ru\/post\/217545\/"},"headline":"Как правильно лгать с помощью статистики","datePublished":"2014-03-30T21:01:00+04:00","dateModified":"2014-07-16T13:21:58+04:00","author":{"@type":"Person","name":"Сергей Парамонов"},"publisher":{"@type":"Organization","name":"Habr","logo":{"@type":"ImageObject","url":"https:\/\/habrastorage.org\/webt\/a_\/lk\/9m\/a_lk9mjkccjox-zccjrpfolmkmq.png"}},"description":"Существуют три вида лжи: ложь, наглая ложь и статистика (источник)  Есть такой замечательный жанр &mdash; &quot;вредные советы&quot;, в котором детям дают советы, а дети, как и...","url":"https:\/\/habr.com\/ru\/post\/217545\/#post-content-body","about":["h_maths","f_develop"],"image":["https:\/\/habrastorage.org\/getpro\/habr\/post_images\/3f2\/d2f\/fe3\/3f2d2ffe35f0f7ab6deede5498025034.png","https:\/\/habrastorage.org\/getpro\/habr\/post_images\/cb7\/963\/a0c\/cb7963a0cb91d2dd95e06bd3ab7876ed.jpg","https:\/\/habrastorage.org\/getpro\/habr\/post_images\/158\/11f\/4f7\/15811f4f704039c94547bf0655f9a6f2.png","https:\/\/habrastorage.org\/getpro\/habr\/post_images\/bbf\/895\/b92\/bbf895b92cad41520256a307c3bcb33c.png","https:\/\/habrastorage.org\/getpro\/habr\/post_images\/2d4\/1f6\/934\/2d41f6934eed7de1674b8eeb2a5071db.png","https:\/\/habrastorage.org\/getpro\/habr\/post_images\/f9b\/6dc\/f1a\/f9b6dcf1a9d91bb00d05d1d4d2bd39a4.png","https:\/\/habrastorage.org\/getpro\/habr\/post_images\/180\/b8d\/8ce\/180b8d8ce8e751291895a21ad4dd1e66.png","https:\/\/habrastorage.org\/getpro\/habr\/post_images\/282\/4d6\/e16\/2824d6e161d228b3c4026cc96a0b26e6.png","https:\/\/habrastorage.org\/getpro\/habr\/post_images\/d9b\/e6f\/a8e\/d9be6fa8e0c5690947193c2523b90ea8.png","https:\/\/habrastorage.org\/getpro\/habr\/post_images\/337\/428\/2c1\/3374282c147e443e7bc207ea7e10aa50.png","https:\/\/habrastorage.org\/getpro\/habr\/post_images\/d00\/e07\/cd4\/d00e07cd49ffed08923077a5d61fa374.png","https:\/\/habrastorage.org\/getpro\/habr\/post_images\/6cc\/c11\/ea5\/6ccc11ea51ac5941ca75cbee5be83426.png","https:\/\/habrastorage.org\/getpro\/habr\/post_images\/05c\/f16\/15a\/05cf1615a9df078c712d8a63f6f1de0e.png","https:\/\/habrastorage.org\/getpro\/habr\/post_images\/4d6\/a2f\/947\/4d6a2f94797b8f7c52d704b6b171db4c.png","https:\/\/habrastorage.org\/getpro\/habr\/post_images\/6be\/cb7\/552\/6becb7552df4cdda513f3de9a3fe82d0.png","https:\/\/habrastorage.org\/getpro\/habr\/post_images\/b90\/fba\/622\/b90fba622a8fc50f8a86ee8c7f9be4c6.png","https:\/\/habrastorage.org\/getpro\/habr\/post_images\/c93\/b4a\/21e\/c93b4a21e300cc11d7f9538671b3145a.png"]}</script>
+  <script src="//www.googletagservices.com/tag/js/gpt.js" async></script>
+  <style>.grecaptcha-badge{visibility: hidden;}</style>
+  <meta name="habr-version" content="2.84.0">
+  
+  <meta data-vue-meta="ssr" property="fb:app_id" content="444736788986613"><meta data-vue-meta="ssr" property="fb:pages" content="472597926099084"><meta data-vue-meta="ssr" name="twitter:card" content="summary_large_image"><meta data-vue-meta="ssr" name="twitter:site" content="@habr_com"><meta data-vue-meta="ssr" property="og:site_name" content="Хабр" data-vmid="og:site_name"><meta data-vue-meta="ssr" property="og:title" content="Как правильно лгать с помощью статистики" data-vmid="og:title"><meta data-vue-meta="ssr" name="twitter:title" content="Как правильно лгать с помощью статистики" data-vmid="twitter:title"><meta data-vue-meta="ssr" name="aiturec:title" content="Как правильно лгать с помощью статистики" data-vmid="aiturec:title"><meta data-vue-meta="ssr" name="description" content="Существуют три вида лжи: ложь, наглая ложь и статистика ( источник ) Есть такой замечательный жанр — &amp;quot; вредные советы &amp;quot;, в котором детям дают советы, а дети, как известно, всё делают..." data-vmid="description"><meta data-vue-meta="ssr" itemprop="description" content="Существуют три вида лжи: ложь, наглая ложь и статистика ( источник ) Есть такой замечательный жанр — &amp;quot; вредные советы &amp;quot;, в котором детям дают советы, а дети, как известно, всё делают..." data-vmid="description:itemprop"><meta data-vue-meta="ssr" property="og:description" content="Существуют три вида лжи: ложь, наглая ложь и статистика ( источник ) Есть такой замечательный жанр — &amp;quot; вредные советы &amp;quot;, в котором детям дают советы, а дети, как известно, всё делают..." data-vmid="og:description"><meta data-vue-meta="ssr" name="twitter:description" content="Существуют три вида лжи: ложь, наглая ложь и статистика ( источник ) Есть такой замечательный жанр — &amp;quot; вредные советы &amp;quot;, в котором детям дают советы, а дети, как известно, всё делают..." data-vmid="twitter:description"><meta data-vue-meta="ssr" property="aiturec:description" content="Существуют три вида лжи: ложь, наглая ложь и статистика ( источник ) Есть такой замечательный жанр — &amp;quot; вредные советы &amp;quot;, в котором детям дают советы, а дети, как известно, всё делают..." data-vmid="aiturec:description"><meta data-vue-meta="ssr" itemprop="image" content="https://habr.com/share/publication/217545/0451b454539c3676db501dd2b4cfb5ca/" data-vmid="image:itemprop"><meta data-vue-meta="ssr" property="og:image" content="https://habr.com/share/publication/217545/0451b454539c3676db501dd2b4cfb5ca/" data-vmid="og:image"><meta data-vue-meta="ssr" property="og:image:width" content="1200" data-vmid="og:image:width"><meta data-vue-meta="ssr" property="og:image:height" content="630" data-vmid="og:image:height"><meta data-vue-meta="ssr" property="aiturec:image" content="https://habr.com/share/publication/217545/0451b454539c3676db501dd2b4cfb5ca/" data-vmid="aiturec:image"><meta data-vue-meta="ssr" name="twitter:image" content="https://habr.com/share/publication/217545/0451b454539c3676db501dd2b4cfb5ca/" data-vmid="twitter:image"><meta data-vue-meta="ssr" property="vk:image" content="https://habr.com/share/publication/217545/0451b454539c3676db501dd2b4cfb5ca/?format=vk" data-vmid="vk:image"><meta data-vue-meta="ssr" property="aiturec:item_id" content="217545" data-vmid="aiturec:item_id"><meta data-vue-meta="ssr" property="aiturec:datetime" content="2014-03-30T17:01:00.000Z" data-vmid="aiturec:datetime"><meta data-vue-meta="ssr" content="https://habr.com/ru/post/217545/" property="og:url" data-vmid="og:url"><meta data-vue-meta="ssr" property="og:type" content="article" data-vmid="og:type"><meta data-vue-meta="ssr" property="og:locale" content="ru_RU" data-vmid="og:locale"><meta data-vue-meta="ssr" name="keywords" content="статистика, вредные советы">
+  <link data-vue-meta="ssr" href="https://habr.com/ru/rss/post/217545/?fl=ru" type="application/rss+xml" title="" rel="alternate" name="rss"><link data-vue-meta="ssr" href="https://habr.com/ru/post/217545/" rel="canonical" data-vmid="canonical"><link data-vue-meta="ssr" data-vmid="hreflang"><link data-vue-meta="ssr" image_src="image" href="https://habr.com/share/publication/217545/0451b454539c3676db501dd2b4cfb5ca/" data-vmid="image:href"><link data-vue-meta="ssr" rel="amphtml" href="https://habr.com/ru/amp/post/217545/">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303b44">
+  <meta name="msapplication-TileColor" content="#629FBC">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link
+    rel="shortcut icon"
+    type="image/png"
+    sizes="16x16"
+    href="https://assets.habr.com/habr-web/img/favicons/favicon-16.png"
+  >
+  <link
+    rel="shortcut icon"
+    type="image/png"
+    sizes="32x32"
+    href="https://assets.habr.com/habr-web/img/favicons/favicon-32.png"
+  >
+  <link
+    rel="apple-touch-icon"
+    type="image/png"
+    sizes="76x76"
+    href="https://assets.habr.com/habr-web/img/favicons/apple-touch-icon-76.png"
+  >
+  <link
+    rel="apple-touch-icon"
+    type="image/png"
+    sizes="120x120"
+    href="https://assets.habr.com/habr-web/img/favicons/apple-touch-icon-120.png"
+  >
+  <link
+    rel="apple-touch-icon"
+    type="image/png"
+    sizes="152x152"
+    href="https://assets.habr.com/habr-web/img/favicons/apple-touch-icon-152.png"
+  >
+  <link
+    rel="apple-touch-icon"
+    type="image/png"
+    sizes="180x180"
+    href="https://assets.habr.com/habr-web/img/favicons/apple-touch-icon-180.png"
+  >
+  <link
+    rel="apple-touch-icon"
+    type="image/png"
+    sizes="256x256"
+    href="https://assets.habr.com/habr-web/img/favicons/apple-touch-icon-256.png"
+  >
+  <link
+    rel="apple-touch-startup-image"
+    media="screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    href="https://assets.habr.com/habr-web/img/splashes/splash_1136x640.png"
+  >
+  <link
+    rel="apple-touch-startup-image"
+    media="screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+    href="https://assets.habr.com/habr-web/img/splashes/splash_2436x1125.png"
+  >
+  <link
+    rel="apple-touch-startup-image"
+    media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    href="https://assets.habr.com/habr-web/img/splashes/splash_1792x828.png"
+  >
+  <link
+    rel="apple-touch-startup-image"
+    media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    href="https://assets.habr.com/habr-web/img/splashes/splash_828x1792.png"
+  >
+  <link
+    rel="apple-touch-startup-image"
+    media="screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    href="https://assets.habr.com/habr-web/img/splashes/splash_1334x750.png"
+  >
+  <link
+    rel="apple-touch-startup-image"
+    media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    href="https://assets.habr.com/habr-web/img/splashes/splash_1242x2668.png"
+  >
+  <link
+    rel="apple-touch-startup-image"
+    media="screen and (device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+    href="https://assets.habr.com/habr-web/img/splashes/splash_2208x1242.png"
+  >
+  <link
+    rel="apple-touch-startup-image"
+    media="screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    href="https://assets.habr.com/habr-web/img/splashes/splash_1125x2436.png"
+  >
+  <link
+    rel="apple-touch-startup-image"
+    media="screen and (device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    href="https://assets.habr.com/habr-web/img/splashes/splash_1242x2208.png"
+  >
+  <link
+    rel="apple-touch-startup-image"
+    media="screen and (device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    href="https://assets.habr.com/habr-web/img/splashes/splash_2732x2048.png"
+  >
+  <link
+    rel="apple-touch-startup-image"
+    media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+    href="https://assets.habr.com/habr-web/img/splashes/splash_2688x1242.png"
+  >
+  <link
+    rel="apple-touch-startup-image"
+    media="screen and (device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    href="https://assets.habr.com/habr-web/img/splashes/splash_2224x1668.png"
+  >
+  <link
+    rel="apple-touch-startup-image"
+    media="screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    href="https://assets.habr.com/habr-web/img/splashes/splash_750x1334.png"
+  >
+  <link
+    rel="apple-touch-startup-image"
+    media="screen and (device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    href="https://assets.habr.com/habr-web/img/splashes/splash_2048x2732.png"
+  >
+  <link
+    rel="apple-touch-startup-image"
+    media="screen and (device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    href="https://assets.habr.com/habr-web/img/splashes/splash_2388x1668.png"
+  >
+  <link
+    rel="apple-touch-startup-image"
+    media="screen and (device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    href="https://assets.habr.com/habr-web/img/splashes/splash_1668x2224.png"
+  >
+  <link
+    rel="apple-touch-startup-image"
+    media="screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    href="https://assets.habr.com/habr-web/img/splashes/splash_640x1136.png"
+  >
+  <link
+    rel="apple-touch-startup-image"
+    media="screen and (device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    href="https://assets.habr.com/habr-web/img/splashes/splash_1668x2388.png"
+  >
+  <link
+    rel="apple-touch-startup-image"
+    media="screen and (device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+    href="https://assets.habr.com/habr-web/img/splashes/splash_2048x1536.png"
+  >
+  <link
+    rel="apple-touch-startup-image"
+    media="screen and (device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    href="https://assets.habr.com/habr-web/img/splashes/splash_1536x2048.png"
+  >
+  <link
+    rel="mask-icon"
+    color="#77a2b6"
+    href="https://assets.habr.com/habr-web/img/favicons/apple-touch-icon-120.svg"
+  >
+  <link
+    crossorigin="use-credentials"
+    href="/manifest.webmanifest"
+    rel="manifest"
+  >
+  <script>window.yaContextCb = window.yaContextCb || []</script>
+  <script src="https://yandex.ru/ads/system/context.js" async></script>
+</head>
+<body>
+
+
+<div id="app" data-server-rendered="true" data-async-called="true"><div class="tm-layout__wrapper"><!----> <div></div> <!----> <header data-test-id="header" class="tm-header"><div class="tm-page-width"><div class="tm-header__container"><!----> <span class="tm-header__logo-wrap"><a href="/ru/" class="tm-header__logo tm-header__logo_ru"><svg height="16" width="16" class="tm-svg-img tm-header__icon"><title>Хабр</title> <use xlink:href="/img/habr-logo-ru.svg#logo"></use></svg></a> <span class="tm-header__beta-sign" style="display:none;">β</span></span> <div class="tm-dropdown tm-header__projects"><div class="tm-dropdown__head"><button class="tm-header__dropdown-toggle"><svg height="16" width="16" class="tm-svg-img tm-header__icon tm-header__icon_dropdown"><title>Открыть список</title> <use xlink:href="/img/megazord-v25.9b4a34a5.svg#arrow-down"></use></svg></button></div> <!----></div> <a href="/ru/sandbox/start/" class="tm-header__become-author-btn">
+            Как стать автором
+          </a> <div class="tm-feature tm-header__feature tm-feature tm-feature_variant-inline"><!----></div> <!----> <!----></div></div></header> <div class="tm-layout"><div class="tm-page-progress-bar"></div> <div data-menu-sticky="true" class="tm-base-layout__header tm-base-layout__header_is-sticky"><div class="tm-page-width"><div class="tm-base-layout__header-wrapper"><div class="tm-main-menu"><div class="tm-main-menu__section"><nav class="tm-main-menu__section-content"><!----> <a href="/ru/all/" class="tm-main-menu__item">
+        Все потоки
+      </a> <a href="/ru/flows/develop/" class="tm-main-menu__item">
+          Разработка
+        </a><a href="/ru/flows/admin/" class="tm-main-menu__item">
+          Администрирование
+        </a><a href="/ru/flows/design/" class="tm-main-menu__item">
+          Дизайн
+        </a><a href="/ru/flows/management/" class="tm-main-menu__item">
+          Менеджмент
+        </a><a href="/ru/flows/marketing/" class="tm-main-menu__item">
+          Маркетинг
+        </a><a href="/ru/flows/popsci/" class="tm-main-menu__item">
+          Научпоп
+        </a></nav></div></div> <div class="tm-header-user-menu tm-base-layout__user-menu"><a href="/ru/search/" data-test-id="search-button" class="tm-header-user-menu__item tm-header-user-menu__search"><svg height="24" width="24" class="tm-svg-img tm-header-user-menu__icon tm-header-user-menu__icon_search tm-header-user-menu__icon_dark"><title>Поиск</title> <use xlink:href="/img/megazord-v25.9b4a34a5.svg#search"></use></svg></a> <!----> <!----> <!----> <div class="tm-header-user-menu__item tm-header-user-menu__user_desktop"><div class="tm-dropdown"><div class="tm-dropdown__head"><svg height="24" width="24" data-test-id="menu-toggle-guest" class="tm-svg-img tm-header-user-menu__icon"><title>Профиль</title> <use xlink:href="/img/megazord-v25.9b4a34a5.svg#header-user"></use></svg> <!----></div> <!----></div> <!----></div> <!----></div></div></div></div> <!----> <div class="tm-page-width"></div> <main class="tm-layout__container"><div hl="ru" data-async-called="true" class="tm-page"><div class="tm-page-width"><!----> <div class="tm-page__wrapper"><div class="tm-page__main tm-page__main_has-sidebar"><div class="pull-down"><div class="pull-down__header" style="height:0px;"><div class="pull-down__content" style="bottom:10px;"><svg height="24" width="24" class="tm-svg-img pull-down__arrow"><title>Обновить</title> <use xlink:href="/img/megazord-v25.9b4a34a5.svg#pull-arrow"></use></svg></div></div> <div class="tm-article-presenter"> <div data-test-id="article-body" class="tm-article-presenter__body"><div class="tm-misprint-area"><div class="tm-misprint-area__wrapper"><article class="tm-article-presenter__content tm-article-presenter__content_narrow"><div class="tm-article-presenter__header"> <div class="tm-article-snippet tm-article-presenter__snippet"><div class="tm-article-snippet__meta-container"><div class="tm-article-snippet__meta"><span class="tm-user-info tm-article-snippet__author"><a href="/ru/users/varagian/" data-test-id="user-info-pic" title="varagian" class="tm-user-info__userpic"><div class="tm-entity-image"><img alt="" height="24" src="//habrastorage.org/r/w32/getpro/habr/avatars/245/3f6/c87/2453f6c87d7cdc7944e90f24742cd75e.jpg" width="24" class="tm-entity-image__pic"></div></a> <span data-test-id="user-info-description" class="tm-user-info__user"><a href="/ru/users/varagian/" class="tm-user-info__username">
+      varagian
+    </a> </span></span> <span class="tm-article-snippet__datetime-published"><time datetime="2014-03-30T17:01:00.000Z" title="2014-03-30, 21:01">30  марта  2014 в 21:01</time></span></div> <!----></div> <h1 data-test-id="articleTitle" lang="ru" class="tm-article-snippet__title tm-article-snippet__title_h1"><span>Как правильно лгать с помощью статистики</span></h1> <div data-test-id="articleHubsList" class="tm-article-snippet__hubs"><span class="tm-article-snippet__hubs-item"><a href="/ru/hub/maths/" class="tm-article-snippet__hubs-item-link"><span>Математика</span> <span title="Профильный хаб" class="tm-article-snippet__profiled-hub">*</span></a></span></div> <!----> <!----> <!----></div></div> <!----> <div data-gallery-root="" lang="ru" class="tm-article-body"><div></div> <div id="post-content-body"><div><div class="article-formatted-body article-formatted-body article-formatted-body_version-1"><div xmlns="http://www.w3.org/1999/xhtml"><a name="intro"></a><br/>
+<blockquote>Существуют три вида лжи: ложь, наглая ложь и статистика (<a href="http://en.wikipedia.org/wiki/Lies,_damned_lies,_and_statistics">источник</a>) </blockquote><br/>
+Есть такой замечательный жанр — "<a href="http://lib.ru/ANEKDOTY/osterwred.txt">вредные советы</a>", в котором детям дают советы, а дети, как известно, всё делают наоборот и получается всё как раз правильно. Может быть и со всем остальным так получится? <br/>
+<br/>
+Статистика, инфографика, big data, анализ данных и data science — этим сейчас кто только не занят. Все знают как правильно всем этим заниматься, осталось только кому-то написать как НЕ нужно этого делать. В данной статье мы именно этим и займемся.<br/>
+<br/>
+<img src="https://habrastorage.org/r/w1560/getpro/habr/post_images/3f2/d2f/fe3/3f2d2ffe35f0f7ab6deede5498025034.png" data-src="https://habrastorage.org/getpro/habr/post_images/3f2/d2f/fe3/3f2d2ffe35f0f7ab6deede5498025034.png"/><br/>
+Hazen Robert "<a href="https://hazenold.gl.ciw.edu/sites/hazen.gl.ciw.edu/files/images/601-CurveFitting-1978Science.pdf">Curve fitting</a>". 1978, Science.<br/>
+<br/>
+Структура статьи:<br/>
+<ol>
+<li><a href="http://habrahabr.ru/post/217545/#intro">Введение</a></li>
+<li><a href="http://habrahabr.ru/post/217545/#samplingBias">Предвзятая выборка (Sampling bias)</a></li>
+<li><a href="http://habrahabr.ru/post/217545/#average">Правильно выбираем среднее (Well-chosen average)</a></li>
+<li><a href="http://habrahabr.ru/post/217545/#experiments">И еще 10 неудачных экспериментов, про которые мы не написали</a></li>
+<li><a href="http://habrahabr.ru/post/217545/#scale">Играем со шкалой</a></li>
+<li><a href="http://habrahabr.ru/post/217545/#percents">Выбираем 100%</a></li>
+<li><a href="http://habrahabr.ru/post/217545/#hiding">Скрываем нужные числа</a></li>
+<li><a href="http://habrahabr.ru/post/217545/#visual">Визуальная метафора</a></li>
+<li><a href="http://habrahabr.ru/post/217545/#good">Пример качественной визуализации</a></li>
+<li><a href="http://habrahabr.ru/post/217545/#end">Заключение и дальнейшее чтение</a></li>
+</ol><br/>
+<a name="habracut"></a><br/>
+ <a name="samplingBias"></a><br/>
+ <h4>Предвзятая выборка (Sampling bias)</h4><br/>
+В 1948 году во время президентской гонки в США в ночь на оглашение результатов выборов Труман (демократы) против Дьюи (республиканцы) газета Chicago Tribune опубликовала свой, пожалуй, самый знаменитый заголовок <a href="http://www.chicagotribune.com/news/politics/chi-chicagodays-deweydefeats-story,0,6484067.story">DEWEY DEFEATS TRUMAN</a> (см. фото). Сразу после закрытия участков газета провела опрос, обзвонив огромное (достаточное для выборки) число избирателей, и всё предвещало оглушительную победу Дьюи. На фото мы видим смеющегося Трумана, победителя выборов 48го года. Что же пошло не так?<br/>
+<br/>
+<img src="https://habrastorage.org/r/w780q1/getpro/habr/post_images/cb7/963/a0c/cb7963a0cb91d2dd95e06bd3ab7876ed.jpg" data-src="https://habrastorage.org/getpro/habr/post_images/cb7/963/a0c/cb7963a0cb91d2dd95e06bd3ab7876ed.jpg" data-blurred="true"/><br/>
+<br/>
+Людей обзванивали действительно случайно и в достаточном количестве, но в 48-ом году телефон был доступен только людям определенного достатка и редко встречался у людей с небольшим заработком. Таким образом, сам метод опроса вносит поправку в распределение голосов. Выборка не учитывала достаточно широкий пласт избирателей Трумана (как правило демократы имеют большую долю голосов среди бедного населения), которым телефон в свою очередь был недоступен. Такая выборка и называется предвзятой (<a href="http://en.wikipedia.org/wiki/Sampling_bias">sampling bias</a>).<br/>
+<br/>
+Народное творчество о данном феномене:<br/>
+<blockquote>По данным интернет-голосования 100% людей пользуются интернетом.</blockquote><br/>
+<br/>
+<h5>Зарплата выпускников</h5><br/>
+Никого не удивляло, что когда мы слышим о зарплатах выпускников ВУЗов, то почему-то всегда это неправдоподобно высокие цифры? В США сейчас доходит дело даже до <a href="http://www.abajournal.com/news/article/12_more_law_schools_sued_in_consumer-fraud_class_action_re_reported_law/">судов</a>, где выпускники утверждают, что данные по зарплатам искусственно завышены. <br/>
+<br/>
+<img src="https://habrastorage.org/r/w1560/getpro/habr/post_images/158/11f/4f7/15811f4f704039c94547bf0655f9a6f2.png" data-src="https://habrastorage.org/getpro/habr/post_images/158/11f/4f7/15811f4f704039c94547bf0655f9a6f2.png"/><br/>
+(картинка из <a href="https://archive.org/details/HowToLieWithStatistics">How to Lie with Statistics</a>)<br/>
+<br/>
+Это довольно старая проблема, согласно Darrell Huff, подобный вопрос возникал у выпускников Yale 24-го года. И на самом деле все говорят правду, да только не всю. Сбор статистики происходил в виде опросов (а в те годы с помощью бумажной почты). Отправляют ответ далеко не все, а только небольшая часть всех выпускников; активнее других отвечают те, у кого дела идут хорошо (что часто выражается в неплохой зарплате), поэтому мы видим только «хорошую» часть картины. Это-то и создаёт предвзятость выборки и делает результаты подобных опросов абсолютно бесполезными. <br/>
+ <a name="average"></a><br/>
+ <h4>Правильно выбираем среднее (Well-chosen average)</h4><br/>
+Представим себе компанию, в которой руководитель получает 25 тысяч, его заместитель 7,6 тысяч, топ-менеджеры по 5,5 тысяч, менеджеры среднего звена по 3,5 тысячи, младшие менеджеры по 2,5 тысячи, а обычные работники по 1,4 тысячи (абстрактных фунтиков) в месяц.<br/>
+<br/>
+И наша задача представить информацию о компании в положительном свете. Мы можем написать <i>средняя заработная плата</i> в компании составляет X, но что означает <i>среднее</i>? Рассмотрим возможные варианты (см. схему ниже):<br/>
+<br/>
+<img src="https://habrastorage.org/r/w1560/getpro/habr/post_images/bbf/895/b92/bbf895b92cad41520256a307c3bcb33c.png" data-src="https://habrastorage.org/getpro/habr/post_images/bbf/895/b92/bbf895b92cad41520256a307c3bcb33c.png"/><br/>
+(картинка из <a href="https://archive.org/details/HowToLieWithStatistics">How to Lie with Statistics</a>)<br/>
+<br/>
+Арифметическое среднее некоторого конечного множества X={x<sub>i</sub>} — это такое число m равное mean(X) из уравнения:<br/>
+<br/>
+<img src="https://habrastorage.org/r/w1560/getpro/habr/post_images/2d4/1f6/934/2d41f6934eed7de1674b8eeb2a5071db.png" data-src="https://habrastorage.org/getpro/habr/post_images/2d4/1f6/934/2d41f6934eed7de1674b8eeb2a5071db.png"/><br/>
+<br/>
+Это самая бесполезная информация с точки зрения работника — 3,472 средняя зарплата, но за счет чего получается такая высокая цифра? За счет высоких зарплат руководства, что создает иллюзию, что работник будет получать столько же. С точки зрения работника данная величина не является особо информативной.<br/>
+<br/>
+Конечно же народное творчество не обошло стороной эту особенность «средней величины» в виде средне арифметического<br/>
+<blockquote> Чиновники едят мясо, я — капусту. В среднем мы едим голубцы. </blockquote><br/>
+Медиана некоторого распределения P(X) (X={x<sub>i</sub>}), это такая величина m, что она удовлетворяет следующему уравнению:<br/>
+ <br/>
+<img src="https://habrastorage.org/r/w1560/getpro/habr/post_images/f9b/6dc/f1a/f9b6dcf1a9d91bb00d05d1d4d2bd39a4.png" data-src="https://habrastorage.org/getpro/habr/post_images/f9b/6dc/f1a/f9b6dcf1a9d91bb00d05d1d4d2bd39a4.png"/><br/>
+<br/>
+Проще говоря, половина работников получает больше данной величины, а половина меньше — ровно середина распределения! Данная статистика достаточно информативна для работников компании, так как она позволяет определить как зарплата сотрудника соотносится с большинством сотрудников.<br/>
+<br/>
+Мода конечного множества X={x<sub>i</sub>}, это число m, которое встречается в X чаще всего. В данном случае, мода может быть наиболее информативна для человека, который собирается начать работать в данной компании. <br/>
+<br/>
+Таким образом в зависимости от ситуации под <i>средним значением</i> может пониматься любая из указанных выше величин (в принципе и не только из них). Поэтому принципиально важно понять, как же рассчитывается это среднее значение.<br/>
+ <br/>
+ <a name="experiments"></a><br/>
+ <h4>И еще 10 неудачных экспериментов, про которые мы не написали</h4><br/>
+Опустим обычную газету в серную кислоту, а журнал ТВ Парк — в дистиллированную воду! Почувствовали разницу? С журналом ничего не произошло — бумага как новая! (Весь ролик <a href="http://rutube.ru/video/8278f1154a072d1da67c490acf063421/">тут</a>.)<br/>
+<br/>
+<img src="https://habrastorage.org/r/w1560/getpro/habr/post_images/180/b8d/8ce/180b8d8ce8e751291895a21ad4dd1e66.png" data-src="https://habrastorage.org/getpro/habr/post_images/180/b8d/8ce/180b8d8ce8e751291895a21ad4dd1e66.png"/><br/>
+<br/>
+Наши исследования сообщают, что зубная паста Doake's на 23% процента эффектнее конкурентов, и всё это благодаря Dr Cornish's Tooth Powder! (Который наверняка содержал β-каротин и секретную формулу леса — прим. автора.) Вы наверное удивитесь, но исследование действительно провели и даже выпустили технический отчет. И эксперимент действительно показал, что зубная паста на 23% процента эффективнее конкурентов (чтобы это не значило). Но только вся ли это история?<br/>
+<br/>
+В действительности выборка для эксперимента составляла всего лишь дюжину человек (согласно Darrell Huff и уже упомянутой книге). Это именно та выборка, которая нужна, чтобы получить любые результаты! Представим, что мы подбрасываем монетку пять раз. Какова вероятность, что все пять раз выпадет орел? (1/2)<sup>5</sup> = 1/32. Всего лишь одна тридцать вторая, это не может быть просто совпадением, если выпадут все пять орлов, ведь так? А теперь представим, что мы повторяем этот эксперимент 50 раз. Хоть одна из этих попыток увенчается успехом. О ней-то мы и напишем в отчете, а все другие эксперименты никуда не пойдут. Таким образом мы получим исключительно случайные данные, которые отлично вписываются в нашу задачу.<br/>
+ <a name="scale"></a><br/>
+ <h4>Играем со шкалой</h4><br/>
+Предположим, завтра нужно показать на совещании, что мы догнали конкурентов, но числа немного не сходятся, что же делать? Давайте немного подвигаем шкалой! Даже известный своей качественной работой с данными New York Times выпустил подобный совершенно сбивающий с толку график (обратите внимание на скачок с 800к до 1,5м в центре шкалы).<br/>
+<br/>
+<img src="https://habrastorage.org/r/w1560/getpro/habr/post_images/282/4d6/e16/2824d6e161d228b3c4026cc96a0b26e6.png" data-src="https://habrastorage.org/getpro/habr/post_images/282/4d6/e16/2824d6e161d228b3c4026cc96a0b26e6.png"/><br/>
+<br/>
+(пример из <a href="http://users.stat.umn.edu/~sandy/courses/8801/handouts/04.tabular/wainer1984.pdf">How to Display Data Badly</a> Howard Wainer. The American Statistician, 1984.)<br/>
+ <a name="percents"></a><br/>
+ <h4>Выбираем 100%</h4><br/>
+Представим, что в прошлом году молоко стоило 10 копеек за литр и хлеб был 10 копеек за буханку. В этом году молоко упало в цене на 5 копеек, а хлеб вырос на 20. Внимание вопрос, что мы хотим доказать?<br/>
+<br/>
+Представим, что прошлый год — это 100%, основание для расчетов. Тогда молоко упало в цене на 50% процентов, а хлеб вырос на 200%, среднее 125%, а значит в целом цены выросли на 25%. <br/>
+<img src="https://habrastorage.org/r/w1560/getpro/habr/post_images/d9b/e6f/a8e/d9be6fa8e0c5690947193c2523b90ea8.png" data-src="https://habrastorage.org/getpro/habr/post_images/d9b/e6f/a8e/d9be6fa8e0c5690947193c2523b90ea8.png"/><br/>
+<br/>
+Давайте попробуем еще разок, пусть текущий год — 100%, значит цены на молоко составляли 200% в прошлом году, а хлеб 50%. А значит, в прошлом году цены в среднем были на 25% выше!<br/>
+<br/>
+<img src="https://habrastorage.org/r/w1560/getpro/habr/post_images/337/428/2c1/3374282c147e443e7bc207ea7e10aa50.png" data-src="https://habrastorage.org/getpro/habr/post_images/337/428/2c1/3374282c147e443e7bc207ea7e10aa50.png"/><br/>
+(графики и пример из главы «How to Statisticulate» <a href="https://archive.org/details/HowToLieWithStatistics">How to Lie with Statistics</a>) <br/>
+ <br/>
+ <a name="hiding"></a><br/>
+ <h4>Скрываем нужные числа</h4><br/>
+Лучший способ что-то скрыть — это отвлечь внимание. Например, рассмотрим зависимость количества частных и публичных школ (в тысячах штук) по годам. Из графика видно, что число публичных школ сокращается, а число частных существенно не изменяется.<br/>
+<br/>
+<img src="https://habrastorage.org/r/w1560/getpro/habr/post_images/d00/e07/cd4/d00e07cd49ffed08923077a5d61fa374.png" data-src="https://habrastorage.org/getpro/habr/post_images/d00/e07/cd4/d00e07cd49ffed08923077a5d61fa374.png"/><br/>
+<br/>
+На самом деле рост числа частных школ скрыт на фоне числа публичных школ. Так как они отличаются на порядок, то фактически любые изменения будут не заметны на шкале с достаточно большим шагом. Перерисуем число частных школ отдельно; теперь мы отчетливо видим существенный рост числа частных школ, который был «скрыт» на предыдущем графике.<br/>
+<br/>
+<img src="https://habrastorage.org/r/w1560/getpro/habr/post_images/6cc/c11/ea5/6ccc11ea51ac5941ca75cbee5be83426.png" data-src="https://habrastorage.org/getpro/habr/post_images/6cc/c11/ea5/6ccc11ea51ac5941ca75cbee5be83426.png"/><br/>
+(пример и графики из <a href="http://users.stat.umn.edu/~sandy/courses/8801/handouts/04.tabular/wainer1984.pdf">How to Display Data Badly, Howard Wainer</a>. The American Statistician, 1984.)<br/>
+<br/>
+<a name="visual"></a><br/>
+ <h4>Визуальная метафора</h4><br/>
+Если сравнивать не с чем, а запутать очень хочется, то самое время для непонятных визуальных метафор. Например, если мы изобразим вместо длины площадь на графике, то любой рост будет казаться гораздо более значительным.<br/>
+<br/>
+Рассмотрим потребление количества пива в США за 1970-1978 годы в миллионах баррелей и долю рынка компании Schlitz (см. график ниже). Неплохо выглядит, внушительно. Не правда ли?<br/>
+<br/>
+<img src="https://habrastorage.org/r/w1560/getpro/habr/post_images/05c/f16/15a/05cf1615a9df078c712d8a63f6f1de0e.png" data-src="https://habrastorage.org/getpro/habr/post_images/05c/f16/15a/05cf1615a9df078c712d8a63f6f1de0e.png"/><br/>
+<br/>
+А теперь давайте избавимся от ненужного «мусора» на данном графике и перерисуем его в нормальном виде. Уже как-то не так внушительно и серьезно выходит.<br/>
+<br/>
+<img src="https://habrastorage.org/r/w1560/getpro/habr/post_images/4d6/a2f/947/4d6a2f94797b8f7c52d704b6b171db4c.png" data-src="https://habrastorage.org/getpro/habr/post_images/4d6/a2f/947/4d6a2f94797b8f7c52d704b6b171db4c.png"/><br/>
+(графики и примеры из John P. Boyd, lecture notes <a href="http://www-personal.umich.edu/~jpboyd/sciviz_1_graphbadly.pdf">How to Graph Badly or What. NOT to Do</a>)<br/>
+<br/>
+Первая картинка не врет, все числа в ней верные, только она неявно преподносит данные в совершенно ином свете.<br/>
+<br/>
+<img src="https://habrastorage.org/r/w1560/getpro/habr/post_images/6be/cb7/552/6becb7552df4cdda513f3de9a3fe82d0.png" data-src="https://habrastorage.org/getpro/habr/post_images/6be/cb7/552/6becb7552df4cdda513f3de9a3fe82d0.png"/><br/>
+(картинка из How to Lie with Statistics).<br/>
+<br/>
+<a name="good"></a><br/>
+ <h4>Пример качественной визуализации</h4><br/>
+Качественная визуализация прежде всего преподносит результаты, избегая неоднозначности, и передает достаточное количество информации в сжатом объеме. Про работу Шарль-Жозефа Минара хорошо сказано <a href="http://tema.livejournal.com/1295458.html">тут</a>:<br/>
+<br/>
+<blockquote>Тут прекрасно совершенно все, зрителя не держат за идиота, и не тратят его время на втыкание в <s>censored</s>. Широкая бежевая полоса показывает размер армии в каждой точке похода. В правом верхнем углу — Москва, куда приходит французская армия и откуда начинается отступление, показанное черной полосой. К маршруту отступления для дополнительного интереса привязан график времени и температуры.<br/>
+<br/>
+Вывод в итоге: изумленный зритель сравнивает размер армии на старте с тем, что вернулось домой. Зритель весь в чувствах, он узнал новое, он ощутил масштаб, он заворожен, он понял, что в школе ничего не узнал.</blockquote><br/>
+<br/>
+<img src="https://habrastorage.org/r/w1560/getpro/habr/post_images/b90/fba/622/b90fba622a8fc50f8a86ee8c7f9be4c6.png" data-src="https://habrastorage.org/getpro/habr/post_images/b90/fba/622/b90fba622a8fc50f8a86ee8c7f9be4c6.png"/><br/>
+(Charles Joseph Minard: <a href="http://www.masswerk.at/minard/">Napoleon's Retreat From Moscow</a> (The Russian Campaign 1812-1813), 1869.)<br/>
+ <br/>
+ <a name="end"></a><br/>
+ <h4>Заключение и дальнейшее чтение</h4><br/>
+<blockquote>76% всей статистики взято из головы</blockquote><br/>
+Данная подборка покрывает далеко не полный список приемов, которые осознанно, а также не осознанно искажают данные. Данная статья прежде всего демонстрирует, что мы должны очень внимательно следить за предоставленными нам статистическими данными и выводами сделанными на их основе.<br/>
+<br/>
+Короткий список к дальнейшему чтению:<br/>
+<a href="https://archive.org/details/HowToLieWithStatistics">How to Lie with Statistics</a> — замечательная небольшая книга, невероятно интересно и хорошо написанная, читается на одном дыхании. Демонстрирует основные «ошибки», которые допускают СМИ (и не только они) при работе с данными.<br/>
+<a href="http://users.stat.umn.edu/~sandy/courses/8801/handouts/04.tabular/wainer1984.pdf">How to Display Data Badly.</a> Howard Wainer. The American Statistician (1984) — сборник типичных ошибок и общих «вредных» правил, чаще всего встречающихся в работах с визуализацией данных.<br/>
+<br/>
+<img src="https://habrastorage.org/r/w1560/getpro/habr/post_images/c93/b4a/21e/c93b4a21e300cc11d7f9538671b3145a.png" data-src="https://habrastorage.org/getpro/habr/post_images/c93/b4a/21e/c93b4a21e300cc11d7f9538671b3145a.png"/></div></div></div> <DIV class="v-portal" style="display:none;"></DIV></div> <!----> <!----></div> <div data-test-id="article-meta-links" class="tm-article-presenter__meta"><div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Теги:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D1%81%D1%82%D0%B0%D1%82%D0%B8%D1%81%D1%82%D0%B8%D0%BA%D0%B0%5D" class="tm-tags-list__link">статистика</a></li><li class="tm-separated-list__item"><a href="/ru/search/?target_type=posts&amp;order=relevance&amp;q=%5B%D0%B2%D1%80%D0%B5%D0%B4%D0%BD%D1%8B%D0%B5%20%D1%81%D0%BE%D0%B2%D0%B5%D1%82%D1%8B%5D" class="tm-tags-list__link">вредные советы</a></li></ul></div> <div class="tm-separated-list tm-article-presenter__meta-list"><span class="tm-separated-list__title">Хабы:</span> <ul class="tm-separated-list__list"><li class="tm-separated-list__item"><a href="/ru/hub/maths/" class="tm-hubs-list__link">
+    Математика
+  </a></li></ul></div></div></article></div> <!----></div> <div data-test-id="article-sticky-panel" class="tm-article-sticky-panel"><div data-test-id="article-stats-icons" class="tm-data-icons tm-article-sticky-panel__icons"><div class="tm-article-rating tm-data-icons__item"><div class="tm-votes-meter tm-article-rating__votes-switcher"><svg height="24" width="24" class="tm-svg-img tm-votes-meter__icon tm-votes-meter__icon tm-votes-meter__icon_appearance-article"><title>Всего голосов 312: ↑309 и ↓3</title> <use xlink:href="/img/megazord-v25.9b4a34a5.svg#counter-rating"></use></svg> <span data-test-id="votes-meter-value" title="Всего голосов 312: ↑309 и ↓3" class="tm-votes-meter__value tm-votes-meter__value tm-votes-meter__value_positive tm-votes-meter__value_appearance-article tm-votes-meter__value_rating">+306</span></div> <DIV class="v-portal" style="display:none;"></DIV></div> <!----> <span title="Количество просмотров" class="tm-icon-counter tm-data-icons__item"><svg height="24" width="24" class="tm-svg-img tm-icon-counter__icon"><title>Просмотры</title> <use xlink:href="/img/megazord-v25.9b4a34a5.svg#counter-views"></use></svg> <span class="tm-icon-counter__value">230K</span></span> <button title="Добавить в закладки" type="button" class="bookmarks-button tm-data-icons__item"><span title="Добавить в закладки" class="tm-svg-icon__wrapper bookmarks-button__icon"><svg height="24" width="24" class="tm-svg-img tm-svg-icon"><title>Добавить в закладки</title> <use xlink:href="/img/megazord-v25.9b4a34a5.svg#counter-favorite"></use></svg></span> <span title="Количество пользователей, добавивших публикацию в закладки" class="bookmarks-button__counter">
+    1294
+  </span></button> <!----> <div title="Поделиться" class="tm-sharing tm-data-icons__item"><button type="button" class="tm-sharing__button"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="tm-sharing__icon"><path fill="currentColor" d="M13.8 13.8V18l7.2-6.6L13.8 5v3.9C5 8.9 3 18.6 3 18.6c2.5-4.4 6-4.8 10.8-4.8z"></path></svg></button> <DIV class="v-portal" style="display:none;"></DIV></div> <DIV class="v-portal" style="display:none;"></DIV></div> </div></div> <DIV class="v-portal" style="display:none;"></DIV> <div class="tm-article-presenter__footer"><div class="tm-article-blocks"><!----> <section class="tm-block tm-block tm-block_spacing-bottom"><!----> <div class="tm-block__body tm-block__body tm-block__body_variant-balanced"><div data-test-id="article-author-info" class="tm-article-author"> <div class="tm-user-card tm-article-author__user-card tm-user-card tm-user-card_variant-article"><div class="tm-user-card__info-container"><div class="tm-user-card__header"><div class="tm-user-card__header-data"><a href="/ru/users/varagian/" class="tm-user-card__userpic tm-user-card__userpic_size-40"><div class="tm-entity-image"><img alt="" src="//habrastorage.org/getpro/habr/avatars/245/3f6/c87/2453f6c87d7cdc7944e90f24742cd75e.jpg" class="tm-entity-image__pic"></div></a> <div class="tm-user-card__meta"><div title=" 357 голосов " class="tm-karma tm-user-card__karma tm-karma"><div class="tm-karma__votes tm-karma__votes_positive">
+    315
+  </div> <div class="tm-karma__text">
+    Карма
+  </div></div> <div title="Рейтинг пользователя" class="tm-rating tm-user-card__rating"><div class="tm-rating__header"> <div class="tm-rating__counter tm-rating__counter">0</div></div> <div class="tm-rating__text tm-rating__text">
+    Рейтинг
+  </div></div></div></div></div> <div class="tm-user-card__info tm-user-card__info tm-user-card__info_variant-article"><div class="tm-user-card__title tm-user-card__title tm-user-card__title_variant-article"><span class="tm-user-card__name tm-user-card__name tm-user-card__name_variant-article">Сергей Парамонов</span> <a href="/ru/users/varagian/" class="tm-user-card__nickname tm-user-card__nickname tm-user-card__nickname_variant-article">
+          @varagian
+        </a> <!----></div> <p data-test-id="user-card-speciality" class="tm-user-card__short-info tm-user-card__short-info tm-user-card__short-info_variant-article">Data Scientist, PhD in AI</p></div></div> <div class="tm-user-card__buttons tm-user-card__buttons tm-user-card__buttons_variant-article"><!----> <!----> <!----> <!----> <!----></div></div> <div data-test-id="author-contacts" class="tm-article-author__user-contacts"><a data-test-id="author-contact-link" href="https://www.linkedin.com/in/sergeyparamonov" rel="noopener" target="_blank" class="tm-article-author__contact">
+      Сайт
+    </a><a data-test-id="author-contact-link" href="https://github.com/SergeyParamonov/" rel="noopener" target="_blank" class="tm-article-author__contact">
+      Github
+    </a></div></div> <DIV class="v-portal" style="display:none;"></DIV></div> <!----></section> <div class="tm-adfox-banner__container tm-page-article__banner"><!----> <div id="adfox_164725660339535756" class="tm-adfox-banner tm-adfox-banner tm-adfox-banner_variant-leaderboard"></div></div> <div class="tm-article-blocks__comments"><div class="tm-article-page-comments"><div class="tm-article-comments-counter-link tm-article-comments-counter-button"><a href="/ru/post/217545/comments/" data-test-id="counter-comments" class="tm-article-comments-counter-link__link tm-article-comments-counter-link__link_button-style"><svg height="24" width="24" class="tm-svg-img tm-article-comments-counter-link__icon tm-article-comments-counter-link__icon_contrasted"><title>Комментарии</title> <use xlink:href="/img/megazord-v25.9b4a34a5.svg#counter-comments"></use></svg> <span class="tm-article-comments-counter-link__value tm-article-comments-counter-link__value_contrasted">
+       Комментарии 74 
+    </span></a> <!----></div></div></div>  <!----> <div><div><!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <div class="tm-placeholder-promo"><div class="tm-placeholder-promo__header"><div class="tm-placeholder__line tm-placeholder__line_promo-title"></div></div> <div class="tm-placeholder-promo__body"><div class="tm-placeholder-promo__posts"><div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div> <div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div> <div class="tm-placeholder-promo__post"><div class="tm-placeholder-promo__image"></div> <div class="tm-placeholder__line tm-placeholder__line_post-title"></div></div></div> <div class="tm-placeholder-promo__dots"><div class="tm-placeholder-promo__dot"></div> <div class="tm-placeholder-promo__dot"></div> <div class="tm-placeholder-promo__dot"></div></div></div></div></div></div> <div><!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <div class="tm-placeholder-inset tm-placeholder-vacancies"><div class="tm-placeholder-inset__header"><div class="tm-placeholder__line tm-placeholder__line_inset-header loads"></div></div> <div class="tm-placeholder-inset__body"><ul class="tm-placeholder-list"><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li><li class="tm-placeholder-list__item tm-placeholder-list__item_inset"><div class="tm-placeholder-list__title-container"><div class="tm-placeholder__line tm-placeholder__line_item-title loads"></div></div> <div class="tm-project-block-items__properties"><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span><span class="tm-project-block-items__property-item"><span class="tm-placeholder__line loads" style="width: 100px;"></span></span></div></li></ul></div> <div class="tm-placeholder-inset__footer"><div class="tm-placeholder__line tm-placeholder__line_inset-footer loads"></div></div></div> <!----></div> <!----> </div></div></div></div></div> <div class="tm-page__sidebar"><div class="tm-layout-sidebar"><div class="tm-layout-sidebar__ads tm-layout-sidebar__ads_initial"><div class="tm-adfox-banner__container tm-layout-sidebar__banner tm-layout-sidebar__banner_top"><!----> <div id="adfox_164725680533065327" class="tm-adfox-banner tm-adfox-banner tm-adfox-banner_variant-half-page"></div></div></div> <div class="tm-sexy-sidebar tm-sexy-sidebar_initial" style="margin-top:0px;"><!----> <!----> <div class="tm-adfox-banner__container tm-layout-sidebar__banner tm-layout-sidebar__banner_bottom"><!----> <div id="adfox_164725691003361602" class="tm-adfox-banner tm-adfox-banner tm-adfox-banner_variant-medium-rectangle"></div></div></div></div></div></div></div></div></main> <!----></div> <div class="tm-footer-menu"><div class="tm-page-width"><div class="tm-footer-menu__container"><div class="tm-footer-menu__block"><h3 class="tm-footer-menu__block-title">
+          Ваш аккаунт
+        </h3> <div class="tm-footer-menu__block-content"><ul class="tm-footer-menu__list"><li class="tm-footer-menu__list-item"><a href="/kek/v1/auth/habrahabr/?back=/ru/post/217545/&amp;hl=ru" rel="nofollow" target="_self">
+                Войти
+              </a></li><li class="tm-footer-menu__list-item"><a href="/kek/v1/auth/habrahabr-register/?back=/ru/post/217545/&amp;hl=ru" rel="nofollow" target="_self">
+                Регистрация
+              </a></li></ul></div></div><div class="tm-footer-menu__block"><h3 class="tm-footer-menu__block-title">
+          Разделы
+        </h3> <div class="tm-footer-menu__block-content"><ul class="tm-footer-menu__list"><li class="tm-footer-menu__list-item"><a href="/ru/" class="footer-menu__item-link router-link-active">
+                Публикации
+              </a></li><li class="tm-footer-menu__list-item"><a href="/ru/news/" class="footer-menu__item-link">
+                Новости
+              </a></li><li class="tm-footer-menu__list-item"><a href="/ru/hubs/" class="footer-menu__item-link">
+                Хабы
+              </a></li><li class="tm-footer-menu__list-item"><a href="/ru/companies/" class="footer-menu__item-link">
+                Компании
+              </a></li><li class="tm-footer-menu__list-item"><a href="/ru/users/" class="footer-menu__item-link">
+                Авторы
+              </a></li><li class="tm-footer-menu__list-item"><a href="/ru/sandbox/" class="footer-menu__item-link">
+                Песочница
+              </a></li></ul></div></div><div class="tm-footer-menu__block"><h3 class="tm-footer-menu__block-title">
+          Информация
+        </h3> <div class="tm-footer-menu__block-content"><ul class="tm-footer-menu__list"><li class="tm-footer-menu__list-item"><a href="/ru/docs/help/" class="footer-menu__item-link">
+                Устройство сайта
+              </a></li><li class="tm-footer-menu__list-item"><a href="/ru/docs/authors/codex/" class="footer-menu__item-link">
+                Для авторов
+              </a></li><li class="tm-footer-menu__list-item"><a href="/ru/docs/companies/corpblogs/" class="footer-menu__item-link">
+                Для компаний
+              </a></li><li class="tm-footer-menu__list-item"><a href="/ru/docs/docs/transparency/" class="footer-menu__item-link">
+                Документы
+              </a></li><li class="tm-footer-menu__list-item"><a href="https://account.habr.com/info/agreement" target="_blank">
+                Соглашение
+              </a></li><li class="tm-footer-menu__list-item"><a href="https://account.habr.com/info/confidential/" target="_blank">
+                Конфиденциальность
+              </a></li></ul></div></div><div class="tm-footer-menu__block"><h3 class="tm-footer-menu__block-title">
+          Услуги
+        </h3> <div class="tm-footer-menu__block-content"><ul class="tm-footer-menu__list"><li class="tm-footer-menu__list-item"><a href="https://company.habr.com/ru/corporate-blogs/" target="_blank">
+                Корпоративный блог
+              </a></li><li class="tm-footer-menu__list-item"><a href="https://company.habr.com/ru/advertising/" target="_blank">
+                Медийная реклама
+              </a></li><li class="tm-footer-menu__list-item"><a href="https://company.habr.com/ru/native-special/" target="_blank">
+                Нативные проекты
+              </a></li><li class="tm-footer-menu__list-item"><a href="https://company.habr.com/ru/education-programs/" target="_blank">
+                Образовательные программы
+              </a></li><li class="tm-footer-menu__list-item"><a href="https://company.habr.com/ru/hello-startup/" target="_blank">
+                Стартапам
+              </a></li><li class="tm-footer-menu__list-item"><a href="/ru/megaprojects/" class="footer-menu__item-link">
+                Мегапроекты
+              </a></li></ul></div></div></div></div></div> <div class="tm-footer"><div class="tm-page-width"><div class="tm-footer__container"><!----> <div class="tm-footer__social"><a href="https://www.facebook.com/habrahabr.ru" rel="nofollow noopener noreferrer" target="_blank" class="tm-svg-icon__wrapper tm-social-icons__icon"><svg height="16" width="16" class="tm-svg-img tm-svg-icon"><title>Facebook</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-facebook"></use></svg></a><a href="https://twitter.com/habr_com" rel="nofollow noopener noreferrer" target="_blank" class="tm-svg-icon__wrapper tm-social-icons__icon"><svg height="16" width="16" class="tm-svg-img tm-svg-icon"><title>Twitter</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-twitter"></use></svg></a><a href="https://vk.com/habr" rel="nofollow noopener noreferrer" target="_blank" class="tm-svg-icon__wrapper tm-social-icons__icon"><svg height="16" width="16" class="tm-svg-img tm-svg-icon"><title>VK</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-vkontakte"></use></svg></a><a href="https://telegram.me/habr_com" rel="nofollow noopener noreferrer" target="_blank" class="tm-svg-icon__wrapper tm-social-icons__icon"><svg height="16" width="16" class="tm-svg-img tm-svg-icon"><title>Telegram</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-telegram"></use></svg></a><a href="https://www.youtube.com/channel/UCd_sTwKqVrweTt4oAKY5y4w" rel="nofollow noopener noreferrer" target="_blank" class="tm-svg-icon__wrapper tm-social-icons__icon"><svg height="16" width="16" class="tm-svg-img tm-svg-icon"><title>Youtube</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-youtube"></use></svg></a><a href="https://zen.yandex.ru/habr" rel="nofollow noopener noreferrer" target="_blank" class="tm-svg-icon__wrapper tm-social-icons__icon"><svg height="16" width="16" class="tm-svg-img tm-svg-icon"><title>Яндекс Дзен</title> <use xlink:href="/img/social-icons-sprite.svg#social-logo-zen"></use></svg></a></div> <DIV class="v-portal" style="display:none;"></DIV> <button class="tm-footer__link"><!---->
+        Настройка языка
+      </button> <a href="/ru/feedback/" class="tm-footer__link">
+        Техническая поддержка
+      </a> <!----> <a href="/berserk-mode-nope" class="tm-footer__link">
+        Вернуться на старую версию
+      </a> <div class="tm-footer-copyright"><span class="tm-copyright"><span class="tm-copyright__years">© 2006–2022, </span> <span class="tm-copyright__name"><a href="https://company.habr.com/" rel="noopener" target="_blank" class="tm-copyright__link">Habr</a></span></span></div></div></div></div> <!----> <!----></div> <div class="vue-portal-target"></div></div>
+<script>window.__INITIAL_STATE__={"adblock":{"hasAcceptableAdsFilter":false,"hasAdblock":false},"articlesList":{"articlesList":{"217545":{"id":"217545","timePublished":"2014-03-30T17:01:00+00:00","isCorporative":false,"lang":"ru","titleHtml":"Как правильно лгать с помощью статистики","leadData":{"textHtml":"\u003Ca name=\"intro\"\u003E\u003C\u002Fa\u003E\u003Cbr\u002F\u003E\r\n\u003Cblockquote\u003EСуществуют три вида лжи: ложь, наглая ложь и статистика (\u003Ca href=\"http:\u002F\u002Fen.wikipedia.org\u002Fwiki\u002FLies,_damned_lies,_and_statistics\"\u003Eисточник\u003C\u002Fa\u003E) \u003C\u002Fblockquote\u003E\u003Cbr\u002F\u003E\r\nЕсть такой замечательный жанр — &quot;\u003Ca href=\"http:\u002F\u002Flib.ru\u002FANEKDOTY\u002Fosterwred.txt\"\u003Eвредные советы\u003C\u002Fa\u003E&quot;, в котором детям дают советы, а дети, как известно, всё делают наоборот и получается всё как раз правильно. Может быть и со всем остальным так получится? \u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nСтатистика, инфографика, big data, анализ данных и data science — этим сейчас кто только не занят. Все знают как правильно всем этим заниматься, осталось только кому-то написать как НЕ нужно этого делать. В данной статье мы именно этим и займемся.\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\n\u003Cimg src=\"https:\u002F\u002Fhabrastorage.org\u002Fgetpro\u002Fhabr\u002Fpost_images\u002F3f2\u002Fd2f\u002Ffe3\u002F3f2d2ffe35f0f7ab6deede5498025034.png\"\u002F\u003E\u003Cbr\u002F\u003E\r\nHazen Robert &quot;\u003Ca href=\"https:\u002F\u002Fhazenold.gl.ciw.edu\u002Fsites\u002Fhazen.gl.ciw.edu\u002Ffiles\u002Fimages\u002F601-CurveFitting-1978Science.pdf\"\u003ECurve fitting\u003C\u002Fa\u003E&quot;. 1978, Science.\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nСтруктура статьи:\u003Cbr\u002F\u003E\r\n\u003Col\u003E\r\n\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Fhabrahabr.ru\u002Fpost\u002F217545\u002F#intro\"\u003EВведение\u003C\u002Fa\u003E\u003C\u002Fli\u003E\r\n\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Fhabrahabr.ru\u002Fpost\u002F217545\u002F#samplingBias\"\u003EПредвзятая выборка (Sampling bias)\u003C\u002Fa\u003E\u003C\u002Fli\u003E\r\n\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Fhabrahabr.ru\u002Fpost\u002F217545\u002F#average\"\u003EПравильно выбираем среднее (Well-chosen average)\u003C\u002Fa\u003E\u003C\u002Fli\u003E\r\n\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Fhabrahabr.ru\u002Fpost\u002F217545\u002F#experiments\"\u003EИ еще 10 неудачных экспериментов, про которые мы не написали\u003C\u002Fa\u003E\u003C\u002Fli\u003E\r\n\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Fhabrahabr.ru\u002Fpost\u002F217545\u002F#scale\"\u003EИграем со шкалой\u003C\u002Fa\u003E\u003C\u002Fli\u003E\r\n\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Fhabrahabr.ru\u002Fpost\u002F217545\u002F#percents\"\u003EВыбираем 100%\u003C\u002Fa\u003E\u003C\u002Fli\u003E\r\n\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Fhabrahabr.ru\u002Fpost\u002F217545\u002F#hiding\"\u003EСкрываем нужные числа\u003C\u002Fa\u003E\u003C\u002Fli\u003E\r\n\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Fhabrahabr.ru\u002Fpost\u002F217545\u002F#visual\"\u003EВизуальная метафора\u003C\u002Fa\u003E\u003C\u002Fli\u003E\r\n\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Fhabrahabr.ru\u002Fpost\u002F217545\u002F#good\"\u003EПример качественной визуализации\u003C\u002Fa\u003E\u003C\u002Fli\u003E\r\n\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Fhabrahabr.ru\u002Fpost\u002F217545\u002F#end\"\u003EЗаключение и дальнейшее чтение\u003C\u002Fa\u003E\u003C\u002Fli\u003E\r\n\u003C\u002Fol\u003E\u003Cbr\u002F\u003E\r\n","imageUrl":null,"buttonTextHtml":"Читать дальше &rarr;","image":null},"editorVersion":"1.0","postType":"article","postLabels":[],"author":{"scoreStats":{"score":315,"votesCount":357},"rating":0,"relatedData":null,"contacts":[{"title":"Сайт","url":"https:\u002F\u002Fwww.linkedin.com\u002Fin\u002Fsergeyparamonov","value":"https:\u002F\u002Fwww.linkedin.com\u002Fin\u002Fsergeyparamonov"},{"title":"Github","url":"https:\u002F\u002Fgithub.com\u002FSergeyParamonov\u002F","value":"SergeyParamonov"}],"authorContacts":[{"title":"Сайт","url":"https:\u002F\u002Fwww.linkedin.com\u002Fin\u002Fsergeyparamonov","value":"https:\u002F\u002Fwww.linkedin.com\u002Fin\u002Fsergeyparamonov"},{"title":"Github","url":"https:\u002F\u002Fgithub.com\u002FSergeyParamonov\u002F","value":"SergeyParamonov"}],"paymentDetails":{"paymentYandexMoney":null,"paymentPayPalMe":null,"paymentWebmoney":null},"id":"25667","alias":"varagian","fullname":"Сергей Парамонов","avatarUrl":"\u002F\u002Fhabrastorage.org\u002Fgetpro\u002Fhabr\u002Favatars\u002F245\u002F3f6\u002Fc87\u002F2453f6c87d7cdc7944e90f24742cd75e.jpg","speciality":"Data Scientist, PhD in AI"},"statistics":{"commentsCount":74,"favoritesCount":1294,"readingCount":229984,"score":306,"votesCount":312},"hubs":[{"relatedData":null,"id":"17812","alias":"maths","type":"collective","title":"Математика","titleHtml":"Математика","isProfiled":true}],"flows":[{"id":"1","alias":"develop","title":"Разработка"}],"relatedData":null,"textHtml":"\u003Cdiv xmlns=\"http:\u002F\u002Fwww.w3.org\u002F1999\u002Fxhtml\"\u003E\u003Ca name=\"intro\"\u003E\u003C\u002Fa\u003E\u003Cbr\u002F\u003E\r\n\u003Cblockquote\u003EСуществуют три вида лжи: ложь, наглая ложь и статистика (\u003Ca href=\"http:\u002F\u002Fen.wikipedia.org\u002Fwiki\u002FLies,_damned_lies,_and_statistics\"\u003Eисточник\u003C\u002Fa\u003E) \u003C\u002Fblockquote\u003E\u003Cbr\u002F\u003E\r\nЕсть такой замечательный жанр — \"\u003Ca href=\"http:\u002F\u002Flib.ru\u002FANEKDOTY\u002Fosterwred.txt\"\u003Eвредные советы\u003C\u002Fa\u003E\", в котором детям дают советы, а дети, как известно, всё делают наоборот и получается всё как раз правильно. Может быть и со всем остальным так получится? \u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nСтатистика, инфографика, big data, анализ данных и data science — этим сейчас кто только не занят. Все знают как правильно всем этим заниматься, осталось только кому-то написать как НЕ нужно этого делать. В данной статье мы именно этим и займемся.\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\n\u003Cimg src=\"https:\u002F\u002Fhabrastorage.org\u002Fr\u002Fw1560\u002Fgetpro\u002Fhabr\u002Fpost_images\u002F3f2\u002Fd2f\u002Ffe3\u002F3f2d2ffe35f0f7ab6deede5498025034.png\" data-src=\"https:\u002F\u002Fhabrastorage.org\u002Fgetpro\u002Fhabr\u002Fpost_images\u002F3f2\u002Fd2f\u002Ffe3\u002F3f2d2ffe35f0f7ab6deede5498025034.png\"\u002F\u003E\u003Cbr\u002F\u003E\r\nHazen Robert \"\u003Ca href=\"https:\u002F\u002Fhazenold.gl.ciw.edu\u002Fsites\u002Fhazen.gl.ciw.edu\u002Ffiles\u002Fimages\u002F601-CurveFitting-1978Science.pdf\"\u003ECurve fitting\u003C\u002Fa\u003E\". 1978, Science.\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nСтруктура статьи:\u003Cbr\u002F\u003E\r\n\u003Col\u003E\r\n\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Fhabrahabr.ru\u002Fpost\u002F217545\u002F#intro\"\u003EВведение\u003C\u002Fa\u003E\u003C\u002Fli\u003E\r\n\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Fhabrahabr.ru\u002Fpost\u002F217545\u002F#samplingBias\"\u003EПредвзятая выборка (Sampling bias)\u003C\u002Fa\u003E\u003C\u002Fli\u003E\r\n\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Fhabrahabr.ru\u002Fpost\u002F217545\u002F#average\"\u003EПравильно выбираем среднее (Well-chosen average)\u003C\u002Fa\u003E\u003C\u002Fli\u003E\r\n\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Fhabrahabr.ru\u002Fpost\u002F217545\u002F#experiments\"\u003EИ еще 10 неудачных экспериментов, про которые мы не написали\u003C\u002Fa\u003E\u003C\u002Fli\u003E\r\n\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Fhabrahabr.ru\u002Fpost\u002F217545\u002F#scale\"\u003EИграем со шкалой\u003C\u002Fa\u003E\u003C\u002Fli\u003E\r\n\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Fhabrahabr.ru\u002Fpost\u002F217545\u002F#percents\"\u003EВыбираем 100%\u003C\u002Fa\u003E\u003C\u002Fli\u003E\r\n\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Fhabrahabr.ru\u002Fpost\u002F217545\u002F#hiding\"\u003EСкрываем нужные числа\u003C\u002Fa\u003E\u003C\u002Fli\u003E\r\n\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Fhabrahabr.ru\u002Fpost\u002F217545\u002F#visual\"\u003EВизуальная метафора\u003C\u002Fa\u003E\u003C\u002Fli\u003E\r\n\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Fhabrahabr.ru\u002Fpost\u002F217545\u002F#good\"\u003EПример качественной визуализации\u003C\u002Fa\u003E\u003C\u002Fli\u003E\r\n\u003Cli\u003E\u003Ca href=\"http:\u002F\u002Fhabrahabr.ru\u002Fpost\u002F217545\u002F#end\"\u003EЗаключение и дальнейшее чтение\u003C\u002Fa\u003E\u003C\u002Fli\u003E\r\n\u003C\u002Fol\u003E\u003Cbr\u002F\u003E\r\n\u003Ca name=\"habracut\"\u003E\u003C\u002Fa\u003E\u003Cbr\u002F\u003E\r\n \u003Ca name=\"samplingBias\"\u003E\u003C\u002Fa\u003E\u003Cbr\u002F\u003E\r\n \u003Ch4\u003EПредвзятая выборка (Sampling bias)\u003C\u002Fh4\u003E\u003Cbr\u002F\u003E\r\nВ 1948 году во время президентской гонки в США в ночь на оглашение результатов выборов Труман (демократы) против Дьюи (республиканцы) газета Chicago Tribune опубликовала свой, пожалуй, самый знаменитый заголовок \u003Ca href=\"http:\u002F\u002Fwww.chicagotribune.com\u002Fnews\u002Fpolitics\u002Fchi-chicagodays-deweydefeats-story,0,6484067.story\"\u003EDEWEY DEFEATS TRUMAN\u003C\u002Fa\u003E (см. фото). Сразу после закрытия участков газета провела опрос, обзвонив огромное (достаточное для выборки) число избирателей, и всё предвещало оглушительную победу Дьюи. На фото мы видим смеющегося Трумана, победителя выборов 48го года. Что же пошло не так?\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\n\u003Cimg src=\"https:\u002F\u002Fhabrastorage.org\u002Fr\u002Fw780q1\u002Fgetpro\u002Fhabr\u002Fpost_images\u002Fcb7\u002F963\u002Fa0c\u002Fcb7963a0cb91d2dd95e06bd3ab7876ed.jpg\" data-src=\"https:\u002F\u002Fhabrastorage.org\u002Fgetpro\u002Fhabr\u002Fpost_images\u002Fcb7\u002F963\u002Fa0c\u002Fcb7963a0cb91d2dd95e06bd3ab7876ed.jpg\" data-blurred=\"true\"\u002F\u003E\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nЛюдей обзванивали действительно случайно и в достаточном количестве, но в 48-ом году телефон был доступен только людям определенного достатка и редко встречался у людей с небольшим заработком. Таким образом, сам метод опроса вносит поправку в распределение голосов. Выборка не учитывала достаточно широкий пласт избирателей Трумана (как правило демократы имеют большую долю голосов среди бедного населения), которым телефон в свою очередь был недоступен. Такая выборка и называется предвзятой (\u003Ca href=\"http:\u002F\u002Fen.wikipedia.org\u002Fwiki\u002FSampling_bias\"\u003Esampling bias\u003C\u002Fa\u003E).\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nНародное творчество о данном феномене:\u003Cbr\u002F\u003E\r\n\u003Cblockquote\u003EПо данным интернет-голосования 100% людей пользуются интернетом.\u003C\u002Fblockquote\u003E\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\n\u003Ch5\u003EЗарплата выпускников\u003C\u002Fh5\u003E\u003Cbr\u002F\u003E\r\nНикого не удивляло, что когда мы слышим о зарплатах выпускников ВУЗов, то почему-то всегда это неправдоподобно высокие цифры? В США сейчас доходит дело даже до \u003Ca href=\"http:\u002F\u002Fwww.abajournal.com\u002Fnews\u002Farticle\u002F12_more_law_schools_sued_in_consumer-fraud_class_action_re_reported_law\u002F\"\u003Eсудов\u003C\u002Fa\u003E, где выпускники утверждают, что данные по зарплатам искусственно завышены. \u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\n\u003Cimg src=\"https:\u002F\u002Fhabrastorage.org\u002Fr\u002Fw1560\u002Fgetpro\u002Fhabr\u002Fpost_images\u002F158\u002F11f\u002F4f7\u002F15811f4f704039c94547bf0655f9a6f2.png\" data-src=\"https:\u002F\u002Fhabrastorage.org\u002Fgetpro\u002Fhabr\u002Fpost_images\u002F158\u002F11f\u002F4f7\u002F15811f4f704039c94547bf0655f9a6f2.png\"\u002F\u003E\u003Cbr\u002F\u003E\r\n(картинка из \u003Ca href=\"https:\u002F\u002Farchive.org\u002Fdetails\u002FHowToLieWithStatistics\"\u003EHow to Lie with Statistics\u003C\u002Fa\u003E)\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nЭто довольно старая проблема, согласно Darrell Huff, подобный вопрос возникал у выпускников Yale 24-го года. И на самом деле все говорят правду, да только не всю. Сбор статистики происходил в виде опросов (а в те годы с помощью бумажной почты). Отправляют ответ далеко не все, а только небольшая часть всех выпускников; активнее других отвечают те, у кого дела идут хорошо (что часто выражается в неплохой зарплате), поэтому мы видим только «хорошую» часть картины. Это-то и создаёт предвзятость выборки и делает результаты подобных опросов абсолютно бесполезными. \u003Cbr\u002F\u003E\r\n \u003Ca name=\"average\"\u003E\u003C\u002Fa\u003E\u003Cbr\u002F\u003E\r\n \u003Ch4\u003EПравильно выбираем среднее (Well-chosen average)\u003C\u002Fh4\u003E\u003Cbr\u002F\u003E\r\nПредставим себе компанию, в которой руководитель получает 25 тысяч, его заместитель 7,6 тысяч, топ-менеджеры по 5,5 тысяч, менеджеры среднего звена по 3,5 тысячи, младшие менеджеры по 2,5 тысячи, а обычные работники по 1,4 тысячи (абстрактных фунтиков) в месяц.\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nИ наша задача представить информацию о компании в положительном свете. Мы можем написать \u003Ci\u003Eсредняя заработная плата\u003C\u002Fi\u003E в компании составляет X, но что означает \u003Ci\u003Eсреднее\u003C\u002Fi\u003E? Рассмотрим возможные варианты (см. схему ниже):\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\n\u003Cimg src=\"https:\u002F\u002Fhabrastorage.org\u002Fr\u002Fw1560\u002Fgetpro\u002Fhabr\u002Fpost_images\u002Fbbf\u002F895\u002Fb92\u002Fbbf895b92cad41520256a307c3bcb33c.png\" data-src=\"https:\u002F\u002Fhabrastorage.org\u002Fgetpro\u002Fhabr\u002Fpost_images\u002Fbbf\u002F895\u002Fb92\u002Fbbf895b92cad41520256a307c3bcb33c.png\"\u002F\u003E\u003Cbr\u002F\u003E\r\n(картинка из \u003Ca href=\"https:\u002F\u002Farchive.org\u002Fdetails\u002FHowToLieWithStatistics\"\u003EHow to Lie with Statistics\u003C\u002Fa\u003E)\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nАрифметическое среднее некоторого конечного множества X={x\u003Csub\u003Ei\u003C\u002Fsub\u003E} — это такое число m равное mean(X) из уравнения:\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\n\u003Cimg src=\"https:\u002F\u002Fhabrastorage.org\u002Fr\u002Fw1560\u002Fgetpro\u002Fhabr\u002Fpost_images\u002F2d4\u002F1f6\u002F934\u002F2d41f6934eed7de1674b8eeb2a5071db.png\" data-src=\"https:\u002F\u002Fhabrastorage.org\u002Fgetpro\u002Fhabr\u002Fpost_images\u002F2d4\u002F1f6\u002F934\u002F2d41f6934eed7de1674b8eeb2a5071db.png\"\u002F\u003E\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nЭто самая бесполезная информация с точки зрения работника — 3,472 средняя зарплата, но за счет чего получается такая высокая цифра? За счет высоких зарплат руководства, что создает иллюзию, что работник будет получать столько же. С точки зрения работника данная величина не является особо информативной.\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nКонечно же народное творчество не обошло стороной эту особенность «средней величины» в виде средне арифметического\u003Cbr\u002F\u003E\r\n\u003Cblockquote\u003E Чиновники едят мясо, я — капусту. В среднем мы едим голубцы. \u003C\u002Fblockquote\u003E\u003Cbr\u002F\u003E\r\nМедиана некоторого распределения P(X) (X={x\u003Csub\u003Ei\u003C\u002Fsub\u003E}), это такая величина m, что она удовлетворяет следующему уравнению:\u003Cbr\u002F\u003E\r\n \u003Cbr\u002F\u003E\r\n\u003Cimg src=\"https:\u002F\u002Fhabrastorage.org\u002Fr\u002Fw1560\u002Fgetpro\u002Fhabr\u002Fpost_images\u002Ff9b\u002F6dc\u002Ff1a\u002Ff9b6dcf1a9d91bb00d05d1d4d2bd39a4.png\" data-src=\"https:\u002F\u002Fhabrastorage.org\u002Fgetpro\u002Fhabr\u002Fpost_images\u002Ff9b\u002F6dc\u002Ff1a\u002Ff9b6dcf1a9d91bb00d05d1d4d2bd39a4.png\"\u002F\u003E\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nПроще говоря, половина работников получает больше данной величины, а половина меньше — ровно середина распределения! Данная статистика достаточно информативна для работников компании, так как она позволяет определить как зарплата сотрудника соотносится с большинством сотрудников.\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nМода конечного множества X={x\u003Csub\u003Ei\u003C\u002Fsub\u003E}, это число m, которое встречается в X чаще всего. В данном случае, мода может быть наиболее информативна для человека, который собирается начать работать в данной компании. \u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nТаким образом в зависимости от ситуации под \u003Ci\u003Eсредним значением\u003C\u002Fi\u003E может пониматься любая из указанных выше величин (в принципе и не только из них). Поэтому принципиально важно понять, как же рассчитывается это среднее значение.\u003Cbr\u002F\u003E\r\n \u003Cbr\u002F\u003E\r\n \u003Ca name=\"experiments\"\u003E\u003C\u002Fa\u003E\u003Cbr\u002F\u003E\r\n \u003Ch4\u003EИ еще 10 неудачных экспериментов, про которые мы не написали\u003C\u002Fh4\u003E\u003Cbr\u002F\u003E\r\nОпустим обычную газету в серную кислоту, а журнал ТВ Парк — в дистиллированную воду! Почувствовали разницу? С журналом ничего не произошло — бумага как новая! (Весь ролик \u003Ca href=\"http:\u002F\u002Frutube.ru\u002Fvideo\u002F8278f1154a072d1da67c490acf063421\u002F\"\u003Eтут\u003C\u002Fa\u003E.)\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\n\u003Cimg src=\"https:\u002F\u002Fhabrastorage.org\u002Fr\u002Fw1560\u002Fgetpro\u002Fhabr\u002Fpost_images\u002F180\u002Fb8d\u002F8ce\u002F180b8d8ce8e751291895a21ad4dd1e66.png\" data-src=\"https:\u002F\u002Fhabrastorage.org\u002Fgetpro\u002Fhabr\u002Fpost_images\u002F180\u002Fb8d\u002F8ce\u002F180b8d8ce8e751291895a21ad4dd1e66.png\"\u002F\u003E\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nНаши исследования сообщают, что зубная паста Doake's на 23% процента эффектнее конкурентов, и всё это благодаря Dr Cornish's Tooth Powder! (Который наверняка содержал β-каротин и секретную формулу леса — прим. автора.) Вы наверное удивитесь, но исследование действительно провели и даже выпустили технический отчет. И эксперимент действительно показал, что зубная паста на 23% процента эффективнее конкурентов (чтобы это не значило). Но только вся ли это история?\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nВ действительности выборка для эксперимента составляла всего лишь дюжину человек (согласно Darrell Huff и уже упомянутой книге). Это именно та выборка, которая нужна, чтобы получить любые результаты! Представим, что мы подбрасываем монетку пять раз. Какова вероятность, что все пять раз выпадет орел? (1\u002F2)\u003Csup\u003E5\u003C\u002Fsup\u003E = 1\u002F32. Всего лишь одна тридцать вторая, это не может быть просто совпадением, если выпадут все пять орлов, ведь так? А теперь представим, что мы повторяем этот эксперимент 50 раз. Хоть одна из этих попыток увенчается успехом. О ней-то мы и напишем в отчете, а все другие эксперименты никуда не пойдут. Таким образом мы получим исключительно случайные данные, которые отлично вписываются в нашу задачу.\u003Cbr\u002F\u003E\r\n \u003Ca name=\"scale\"\u003E\u003C\u002Fa\u003E\u003Cbr\u002F\u003E\r\n \u003Ch4\u003EИграем со шкалой\u003C\u002Fh4\u003E\u003Cbr\u002F\u003E\r\nПредположим, завтра нужно показать на совещании, что мы догнали конкурентов, но числа немного не сходятся, что же делать? Давайте немного подвигаем шкалой! Даже известный своей качественной работой с данными New York Times выпустил подобный совершенно сбивающий с толку график (обратите внимание на скачок с 800к до 1,5м в центре шкалы).\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\n\u003Cimg src=\"https:\u002F\u002Fhabrastorage.org\u002Fr\u002Fw1560\u002Fgetpro\u002Fhabr\u002Fpost_images\u002F282\u002F4d6\u002Fe16\u002F2824d6e161d228b3c4026cc96a0b26e6.png\" data-src=\"https:\u002F\u002Fhabrastorage.org\u002Fgetpro\u002Fhabr\u002Fpost_images\u002F282\u002F4d6\u002Fe16\u002F2824d6e161d228b3c4026cc96a0b26e6.png\"\u002F\u003E\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\n(пример из \u003Ca href=\"http:\u002F\u002Fusers.stat.umn.edu\u002F~sandy\u002Fcourses\u002F8801\u002Fhandouts\u002F04.tabular\u002Fwainer1984.pdf\"\u003EHow to Display Data Badly\u003C\u002Fa\u003E Howard Wainer. The American Statistician, 1984.)\u003Cbr\u002F\u003E\r\n \u003Ca name=\"percents\"\u003E\u003C\u002Fa\u003E\u003Cbr\u002F\u003E\r\n \u003Ch4\u003EВыбираем 100%\u003C\u002Fh4\u003E\u003Cbr\u002F\u003E\r\nПредставим, что в прошлом году молоко стоило 10 копеек за литр и хлеб был 10 копеек за буханку. В этом году молоко упало в цене на 5 копеек, а хлеб вырос на 20. Внимание вопрос, что мы хотим доказать?\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nПредставим, что прошлый год — это 100%, основание для расчетов. Тогда молоко упало в цене на 50% процентов, а хлеб вырос на 200%, среднее 125%, а значит в целом цены выросли на 25%. \u003Cbr\u002F\u003E\r\n\u003Cimg src=\"https:\u002F\u002Fhabrastorage.org\u002Fr\u002Fw1560\u002Fgetpro\u002Fhabr\u002Fpost_images\u002Fd9b\u002Fe6f\u002Fa8e\u002Fd9be6fa8e0c5690947193c2523b90ea8.png\" data-src=\"https:\u002F\u002Fhabrastorage.org\u002Fgetpro\u002Fhabr\u002Fpost_images\u002Fd9b\u002Fe6f\u002Fa8e\u002Fd9be6fa8e0c5690947193c2523b90ea8.png\"\u002F\u003E\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nДавайте попробуем еще разок, пусть текущий год — 100%, значит цены на молоко составляли 200% в прошлом году, а хлеб 50%. А значит, в прошлом году цены в среднем были на 25% выше!\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\n\u003Cimg src=\"https:\u002F\u002Fhabrastorage.org\u002Fr\u002Fw1560\u002Fgetpro\u002Fhabr\u002Fpost_images\u002F337\u002F428\u002F2c1\u002F3374282c147e443e7bc207ea7e10aa50.png\" data-src=\"https:\u002F\u002Fhabrastorage.org\u002Fgetpro\u002Fhabr\u002Fpost_images\u002F337\u002F428\u002F2c1\u002F3374282c147e443e7bc207ea7e10aa50.png\"\u002F\u003E\u003Cbr\u002F\u003E\r\n(графики и пример из главы «How to Statisticulate» \u003Ca href=\"https:\u002F\u002Farchive.org\u002Fdetails\u002FHowToLieWithStatistics\"\u003EHow to Lie with Statistics\u003C\u002Fa\u003E) \u003Cbr\u002F\u003E\r\n \u003Cbr\u002F\u003E\r\n \u003Ca name=\"hiding\"\u003E\u003C\u002Fa\u003E\u003Cbr\u002F\u003E\r\n \u003Ch4\u003EСкрываем нужные числа\u003C\u002Fh4\u003E\u003Cbr\u002F\u003E\r\nЛучший способ что-то скрыть — это отвлечь внимание. Например, рассмотрим зависимость количества частных и публичных школ (в тысячах штук) по годам. Из графика видно, что число публичных школ сокращается, а число частных существенно не изменяется.\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\n\u003Cimg src=\"https:\u002F\u002Fhabrastorage.org\u002Fr\u002Fw1560\u002Fgetpro\u002Fhabr\u002Fpost_images\u002Fd00\u002Fe07\u002Fcd4\u002Fd00e07cd49ffed08923077a5d61fa374.png\" data-src=\"https:\u002F\u002Fhabrastorage.org\u002Fgetpro\u002Fhabr\u002Fpost_images\u002Fd00\u002Fe07\u002Fcd4\u002Fd00e07cd49ffed08923077a5d61fa374.png\"\u002F\u003E\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nНа самом деле рост числа частных школ скрыт на фоне числа публичных школ. Так как они отличаются на порядок, то фактически любые изменения будут не заметны на шкале с достаточно большим шагом. Перерисуем число частных школ отдельно; теперь мы отчетливо видим существенный рост числа частных школ, который был «скрыт» на предыдущем графике.\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\n\u003Cimg src=\"https:\u002F\u002Fhabrastorage.org\u002Fr\u002Fw1560\u002Fgetpro\u002Fhabr\u002Fpost_images\u002F6cc\u002Fc11\u002Fea5\u002F6ccc11ea51ac5941ca75cbee5be83426.png\" data-src=\"https:\u002F\u002Fhabrastorage.org\u002Fgetpro\u002Fhabr\u002Fpost_images\u002F6cc\u002Fc11\u002Fea5\u002F6ccc11ea51ac5941ca75cbee5be83426.png\"\u002F\u003E\u003Cbr\u002F\u003E\r\n(пример и графики из \u003Ca href=\"http:\u002F\u002Fusers.stat.umn.edu\u002F~sandy\u002Fcourses\u002F8801\u002Fhandouts\u002F04.tabular\u002Fwainer1984.pdf\"\u003EHow to Display Data Badly, Howard Wainer\u003C\u002Fa\u003E. The American Statistician, 1984.)\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\n\u003Ca name=\"visual\"\u003E\u003C\u002Fa\u003E\u003Cbr\u002F\u003E\r\n \u003Ch4\u003EВизуальная метафора\u003C\u002Fh4\u003E\u003Cbr\u002F\u003E\r\nЕсли сравнивать не с чем, а запутать очень хочется, то самое время для непонятных визуальных метафор. Например, если мы изобразим вместо длины площадь на графике, то любой рост будет казаться гораздо более значительным.\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nРассмотрим потребление количества пива в США за 1970-1978 годы в миллионах баррелей и долю рынка компании Schlitz (см. график ниже). Неплохо выглядит, внушительно. Не правда ли?\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\n\u003Cimg src=\"https:\u002F\u002Fhabrastorage.org\u002Fr\u002Fw1560\u002Fgetpro\u002Fhabr\u002Fpost_images\u002F05c\u002Ff16\u002F15a\u002F05cf1615a9df078c712d8a63f6f1de0e.png\" data-src=\"https:\u002F\u002Fhabrastorage.org\u002Fgetpro\u002Fhabr\u002Fpost_images\u002F05c\u002Ff16\u002F15a\u002F05cf1615a9df078c712d8a63f6f1de0e.png\"\u002F\u003E\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nА теперь давайте избавимся от ненужного «мусора» на данном графике и перерисуем его в нормальном виде. Уже как-то не так внушительно и серьезно выходит.\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\n\u003Cimg src=\"https:\u002F\u002Fhabrastorage.org\u002Fr\u002Fw1560\u002Fgetpro\u002Fhabr\u002Fpost_images\u002F4d6\u002Fa2f\u002F947\u002F4d6a2f94797b8f7c52d704b6b171db4c.png\" data-src=\"https:\u002F\u002Fhabrastorage.org\u002Fgetpro\u002Fhabr\u002Fpost_images\u002F4d6\u002Fa2f\u002F947\u002F4d6a2f94797b8f7c52d704b6b171db4c.png\"\u002F\u003E\u003Cbr\u002F\u003E\r\n(графики и примеры из John P. Boyd, lecture notes \u003Ca href=\"http:\u002F\u002Fwww-personal.umich.edu\u002F~jpboyd\u002Fsciviz_1_graphbadly.pdf\"\u003EHow to Graph Badly or What. NOT to Do\u003C\u002Fa\u003E)\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nПервая картинка не врет, все числа в ней верные, только она неявно преподносит данные в совершенно ином свете.\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\n\u003Cimg src=\"https:\u002F\u002Fhabrastorage.org\u002Fr\u002Fw1560\u002Fgetpro\u002Fhabr\u002Fpost_images\u002F6be\u002Fcb7\u002F552\u002F6becb7552df4cdda513f3de9a3fe82d0.png\" data-src=\"https:\u002F\u002Fhabrastorage.org\u002Fgetpro\u002Fhabr\u002Fpost_images\u002F6be\u002Fcb7\u002F552\u002F6becb7552df4cdda513f3de9a3fe82d0.png\"\u002F\u003E\u003Cbr\u002F\u003E\r\n(картинка из How to Lie with Statistics).\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\n\u003Ca name=\"good\"\u003E\u003C\u002Fa\u003E\u003Cbr\u002F\u003E\r\n \u003Ch4\u003EПример качественной визуализации\u003C\u002Fh4\u003E\u003Cbr\u002F\u003E\r\nКачественная визуализация прежде всего преподносит результаты, избегая неоднозначности, и передает достаточное количество информации в сжатом объеме. Про работу Шарль-Жозефа Минара хорошо сказано \u003Ca href=\"http:\u002F\u002Ftema.livejournal.com\u002F1295458.html\"\u003Eтут\u003C\u002Fa\u003E:\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\n\u003Cblockquote\u003EТут прекрасно совершенно все, зрителя не держат за идиота, и не тратят его время на втыкание в \u003Cs\u003Ecensored\u003C\u002Fs\u003E. Широкая бежевая полоса показывает размер армии в каждой точке похода. В правом верхнем углу — Москва, куда приходит французская армия и откуда начинается отступление, показанное черной полосой. К маршруту отступления для дополнительного интереса привязан график времени и температуры.\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nВывод в итоге: изумленный зритель сравнивает размер армии на старте с тем, что вернулось домой. Зритель весь в чувствах, он узнал новое, он ощутил масштаб, он заворожен, он понял, что в школе ничего не узнал.\u003C\u002Fblockquote\u003E\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\n\u003Cimg src=\"https:\u002F\u002Fhabrastorage.org\u002Fr\u002Fw1560\u002Fgetpro\u002Fhabr\u002Fpost_images\u002Fb90\u002Ffba\u002F622\u002Fb90fba622a8fc50f8a86ee8c7f9be4c6.png\" data-src=\"https:\u002F\u002Fhabrastorage.org\u002Fgetpro\u002Fhabr\u002Fpost_images\u002Fb90\u002Ffba\u002F622\u002Fb90fba622a8fc50f8a86ee8c7f9be4c6.png\"\u002F\u003E\u003Cbr\u002F\u003E\r\n(Charles Joseph Minard: \u003Ca href=\"http:\u002F\u002Fwww.masswerk.at\u002Fminard\u002F\"\u003ENapoleon's Retreat From Moscow\u003C\u002Fa\u003E (The Russian Campaign 1812-1813), 1869.)\u003Cbr\u002F\u003E\r\n \u003Cbr\u002F\u003E\r\n \u003Ca name=\"end\"\u003E\u003C\u002Fa\u003E\u003Cbr\u002F\u003E\r\n \u003Ch4\u003EЗаключение и дальнейшее чтение\u003C\u002Fh4\u003E\u003Cbr\u002F\u003E\r\n\u003Cblockquote\u003E76% всей статистики взято из головы\u003C\u002Fblockquote\u003E\u003Cbr\u002F\u003E\r\nДанная подборка покрывает далеко не полный список приемов, которые осознанно, а также не осознанно искажают данные. Данная статья прежде всего демонстрирует, что мы должны очень внимательно следить за предоставленными нам статистическими данными и выводами сделанными на их основе.\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\nКороткий список к дальнейшему чтению:\u003Cbr\u002F\u003E\r\n\u003Ca href=\"https:\u002F\u002Farchive.org\u002Fdetails\u002FHowToLieWithStatistics\"\u003EHow to Lie with Statistics\u003C\u002Fa\u003E — замечательная небольшая книга, невероятно интересно и хорошо написанная, читается на одном дыхании. Демонстрирует основные «ошибки», которые допускают СМИ (и не только они) при работе с данными.\u003Cbr\u002F\u003E\r\n\u003Ca href=\"http:\u002F\u002Fusers.stat.umn.edu\u002F~sandy\u002Fcourses\u002F8801\u002Fhandouts\u002F04.tabular\u002Fwainer1984.pdf\"\u003EHow to Display Data Badly.\u003C\u002Fa\u003E Howard Wainer. The American Statistician (1984) — сборник типичных ошибок и общих «вредных» правил, чаще всего встречающихся в работах с визуализацией данных.\u003Cbr\u002F\u003E\r\n\u003Cbr\u002F\u003E\r\n\u003Cimg src=\"https:\u002F\u002Fhabrastorage.org\u002Fr\u002Fw1560\u002Fgetpro\u002Fhabr\u002Fpost_images\u002Fc93\u002Fb4a\u002F21e\u002Fc93b4a21e300cc11d7f9538671b3145a.png\" data-src=\"https:\u002F\u002Fhabrastorage.org\u002Fgetpro\u002Fhabr\u002Fpost_images\u002Fc93\u002Fb4a\u002F21e\u002Fc93b4a21e300cc11d7f9538671b3145a.png\"\u002F\u003E\u003C\u002Fdiv\u003E","tags":[{"titleHtml":"статистика"},{"titleHtml":"вредные советы"}],"metadata":{"stylesUrls":[],"scriptUrls":[],"shareImageUrl":"https:\u002F\u002Fhabr.com\u002Fshare\u002Fpublication\u002F217545\u002F0451b454539c3676db501dd2b4cfb5ca\u002F","shareImageWidth":1200,"shareImageHeight":630,"vkShareImageUrl":"https:\u002F\u002Fhabr.com\u002Fshare\u002Fpublication\u002F217545\u002F0451b454539c3676db501dd2b4cfb5ca\u002F?format=vk","schemaJsonLd":"{\"@context\":\"http:\\\u002F\\\u002Fschema.org\",\"@type\":\"Article\",\"mainEntityOfPage\":{\"@type\":\"WebPage\",\"@id\":\"https:\\\u002F\\\u002Fhabr.com\\\u002Fru\\\u002Fpost\\\u002F217545\\\u002F\"},\"headline\":\"Как правильно лгать с помощью статистики\",\"datePublished\":\"2014-03-30T21:01:00+04:00\",\"dateModified\":\"2014-07-16T13:21:58+04:00\",\"author\":{\"@type\":\"Person\",\"name\":\"Сергей Парамонов\"},\"publisher\":{\"@type\":\"Organization\",\"name\":\"Habr\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"https:\\\u002F\\\u002Fhabrastorage.org\\\u002Fwebt\\\u002Fa_\\\u002Flk\\\u002F9m\\\u002Fa_lk9mjkccjox-zccjrpfolmkmq.png\"}},\"description\":\"Существуют три вида лжи: ложь, наглая ложь и статистика (источник)  Есть такой замечательный жанр &mdash; &quot;вредные советы&quot;, в котором детям дают советы, а дети, как и...\",\"url\":\"https:\\\u002F\\\u002Fhabr.com\\\u002Fru\\\u002Fpost\\\u002F217545\\\u002F#post-content-body\",\"about\":[\"h_maths\",\"f_develop\"],\"image\":[\"https:\\\u002F\\\u002Fhabrastorage.org\\\u002Fgetpro\\\u002Fhabr\\\u002Fpost_images\\\u002F3f2\\\u002Fd2f\\\u002Ffe3\\\u002F3f2d2ffe35f0f7ab6deede5498025034.png\",\"https:\\\u002F\\\u002Fhabrastorage.org\\\u002Fgetpro\\\u002Fhabr\\\u002Fpost_images\\\u002Fcb7\\\u002F963\\\u002Fa0c\\\u002Fcb7963a0cb91d2dd95e06bd3ab7876ed.jpg\",\"https:\\\u002F\\\u002Fhabrastorage.org\\\u002Fgetpro\\\u002Fhabr\\\u002Fpost_images\\\u002F158\\\u002F11f\\\u002F4f7\\\u002F15811f4f704039c94547bf0655f9a6f2.png\",\"https:\\\u002F\\\u002Fhabrastorage.org\\\u002Fgetpro\\\u002Fhabr\\\u002Fpost_images\\\u002Fbbf\\\u002F895\\\u002Fb92\\\u002Fbbf895b92cad41520256a307c3bcb33c.png\",\"https:\\\u002F\\\u002Fhabrastorage.org\\\u002Fgetpro\\\u002Fhabr\\\u002Fpost_images\\\u002F2d4\\\u002F1f6\\\u002F934\\\u002F2d41f6934eed7de1674b8eeb2a5071db.png\",\"https:\\\u002F\\\u002Fhabrastorage.org\\\u002Fgetpro\\\u002Fhabr\\\u002Fpost_images\\\u002Ff9b\\\u002F6dc\\\u002Ff1a\\\u002Ff9b6dcf1a9d91bb00d05d1d4d2bd39a4.png\",\"https:\\\u002F\\\u002Fhabrastorage.org\\\u002Fgetpro\\\u002Fhabr\\\u002Fpost_images\\\u002F180\\\u002Fb8d\\\u002F8ce\\\u002F180b8d8ce8e751291895a21ad4dd1e66.png\",\"https:\\\u002F\\\u002Fhabrastorage.org\\\u002Fgetpro\\\u002Fhabr\\\u002Fpost_images\\\u002F282\\\u002F4d6\\\u002Fe16\\\u002F2824d6e161d228b3c4026cc96a0b26e6.png\",\"https:\\\u002F\\\u002Fhabrastorage.org\\\u002Fgetpro\\\u002Fhabr\\\u002Fpost_images\\\u002Fd9b\\\u002Fe6f\\\u002Fa8e\\\u002Fd9be6fa8e0c5690947193c2523b90ea8.png\",\"https:\\\u002F\\\u002Fhabrastorage.org\\\u002Fgetpro\\\u002Fhabr\\\u002Fpost_images\\\u002F337\\\u002F428\\\u002F2c1\\\u002F3374282c147e443e7bc207ea7e10aa50.png\",\"https:\\\u002F\\\u002Fhabrastorage.org\\\u002Fgetpro\\\u002Fhabr\\\u002Fpost_images\\\u002Fd00\\\u002Fe07\\\u002Fcd4\\\u002Fd00e07cd49ffed08923077a5d61fa374.png\",\"https:\\\u002F\\\u002Fhabrastorage.org\\\u002Fgetpro\\\u002Fhabr\\\u002Fpost_images\\\u002F6cc\\\u002Fc11\\\u002Fea5\\\u002F6ccc11ea51ac5941ca75cbee5be83426.png\",\"https:\\\u002F\\\u002Fhabrastorage.org\\\u002Fgetpro\\\u002Fhabr\\\u002Fpost_images\\\u002F05c\\\u002Ff16\\\u002F15a\\\u002F05cf1615a9df078c712d8a63f6f1de0e.png\",\"https:\\\u002F\\\u002Fhabrastorage.org\\\u002Fgetpro\\\u002Fhabr\\\u002Fpost_images\\\u002F4d6\\\u002Fa2f\\\u002F947\\\u002F4d6a2f94797b8f7c52d704b6b171db4c.png\",\"https:\\\u002F\\\u002Fhabrastorage.org\\\u002Fgetpro\\\u002Fhabr\\\u002Fpost_images\\\u002F6be\\\u002Fcb7\\\u002F552\\\u002F6becb7552df4cdda513f3de9a3fe82d0.png\",\"https:\\\u002F\\\u002Fhabrastorage.org\\\u002Fgetpro\\\u002Fhabr\\\u002Fpost_images\\\u002Fb90\\\u002Ffba\\\u002F622\\\u002Fb90fba622a8fc50f8a86ee8c7f9be4c6.png\",\"https:\\\u002F\\\u002Fhabrastorage.org\\\u002Fgetpro\\\u002Fhabr\\\u002Fpost_images\\\u002Fc93\\\u002Fb4a\\\u002F21e\\\u002Fc93b4a21e300cc11d7f9538671b3145a.png\"]}","metaDescription":"Существуют три вида лжи: ложь, наглая ложь и статистика ( источник ) Есть такой замечательный жанр — &quot; вредные советы &quot;, в котором детям дают советы, а дети, как известно, всё делают...","mainImageUrl":null,"amp":true,"customTrackerLinks":[]},"polls":[],"commentsEnabled":true,"rulesRemindEnabled":false,"votesEnabled":true,"status":"published","plannedPublishTime":null,"checked":null,"hasPinnedComments":false,"isEditorial":false}},"articlesIds":{},"isLoading":false,"pagesCount":{},"route":{},"reasonsList":null,"view":"cards","lastVisitedRoute":{},"ssrCommentsArticleIds":[""],"karma":{}},"authorContribution":{"authors":{}},"betaTest":{"currentAnnouncement":null,"announcements":{},"announcementCards":null,"announcementComments":{},"announcementCommentThreads":{},"announcementCommentingStatuses":{},"archivedList":[]},"authorStatistics":{"articleRefs":{},"articleIds":{},"pagesCount":{},"route":{},"viewsCount":[],"maxStatsCount":{}},"career":{"seoLandings":[],"hubs":"maths"},"comments":{"articleComments":{},"articlePinnedComments":{},"searchCommentsResults":null,"pagesCount":null,"commentAccess":{},"scrollParents":{},"pageArticleComments":{"lastViewedComment":0,"postId":null,"lastCommentTimestamp":"","moderated":[],"moderatedIds":[],"commentRoute":""}},"companies":{"companyRefs":{},"companyIds":{},"companyTopIds":{},"pagesCount":{},"companyProfiles":{},"companiesCategories":[],"companiesCategoriesTotalCount":0,"companiesWidgets":{},"companiesWorkers":{},"companiesFans":{},"route":{},"isLoading":false,"companyWorkersLoading":false,"companyFansLoading":false,"vacancies":{},"workplaceInfo":null},"companyAdmin":{"companyInfo":null,"companyInfoLoading":false,"faqArticles":null,"brandingPreviewImageUrl":null,"jivoStatus":0},"companiesContribution":{"hubs":{},"flows":{},"companyRefs":{}},"companyHubsContribution":{"contributionRefs":{"hubRefs":{},"hubIds":{}}},"conversation":{"messages":[],"respondent":null,"isLoadMore":false},"conversations":{"conversations":[],"unreadCount":0,"pagesCount":0},"desktopState":{"desktopFl":null,"desktopHl":null,"isChecked":false,"isLoginDemanded":false},"docs":{"menu":{},"articles":{},"mainMenu":[],"loading":{"main":false,"dropdown":false,"article":false}},"feature":{"isProbablyVisible":"true"},"flows":{"flows":[{"alias":"develop","id":"1","route":{"name":"FLOW_PAGE","params":{"flowName":"develop"}}},{"alias":"admin","id":"6","route":{"name":"FLOW_PAGE","params":{"flowName":"admin"}}},{"alias":"design","id":"2","route":{"name":"FLOW_PAGE","params":{"flowName":"design"}}},{"alias":"management","id":"3","route":{"name":"FLOW_PAGE","params":{"flowName":"management"}}},{"alias":"marketing","id":"4","route":{"name":"FLOW_PAGE","params":{"flowName":"marketing"}}},{"alias":"popsci","id":"7","route":{"name":"FLOW_PAGE","params":{"flowName":"popsci"}}}]},"global":{"isPwa":false,"device":"desktop","isHabrCom":true},"hubs":{"hubRefs":{},"hubIds":{},"pagesCount":{},"isLoading":false,"route":{}},"hubsBlock":{"hubRefs":{},"hubIds":{}},"i18n":{"fl":"ru","hl":"ru"},"info":{"infoPage":{},"isLoading":true},"location":{"urlStruct":{"protocol":null,"slashes":null,"auth":null,"host":null,"port":null,"hostname":null,"hash":null,"search":null,"query":{},"pathname":null,"path":null,"href":""}},"me":{"user":null,"ppgDemanded":false,"karmaResetInfo":{"canReincarnate":null,"wasReincarnated":null,"currentScore":null},"notes":null},"mostReadingList":{"mostReadingListIds":[],"mostReadingListRefs":null,"promoPost":null},"pinnedPost":{"pinnedPost":null},"ppa":{"articles":{},"card":null,"transactions":null,"totalTransactions":null,"isAccessible":null},"projectsBlocks":{"activeBlocks":{"vacancies":"project-block-article"}},"promoData":{"isLoading":false,"hasLoaded":false,"featurer":null,"megaposts":null,"promoLinks":null,"promoPosts":null},"pullRefresh":{"shouldRefresh":false},"sandbox":{"articleIds":[],"articleRefs":{},"pagesCount":null,"route":{},"lastVisitedRoute":{},"isLoading":false},"search":{"searchQueryError":null},"settingsOther":{"inputs":{"uiLang":{"errors":[],"ref":null,"value":""},"articlesLangEnglish":{"errors":[],"ref":null,"value":false},"articlesLangRussian":{"errors":[],"ref":null,"value":false},"agreement":{"errors":[],"ref":null,"value":false},"email":{"errors":[],"ref":null,"value":true},"digest":{"errors":[],"ref":null,"value":true}}},"similarList":{"similarListIds":[],"similarListRefs":null},"ssr":{"error":null,"isDataLoaded":false,"isDataLoading":false,"isHydrationFailed":false,"isServer":false},"technotext":{"nominationsList":[]},"userHubsContribution":{"contributionRefs":{"hubRefs":{},"hubIds":{}}},"userInvites":{"availableInvites":0,"usedInvitesIds":[],"usedInvitesRefs":{},"usedInvitesPagesCount":0,"unusedInvitesIds":[],"unusedInvitesRefs":{},"unusedInvitesPagesCount":0},"users":{"authorRefs":{},"authorIds":{},"pagesCount":{},"authorProfiles":{},"userHubs":{},"userInvitations":{},"authorFollowers":{},"authorFollowed":{},"userSpecialization":{},"karmaStats":[],"statistics":null,"isLoading":false,"authorFollowersLoading":false,"authorFollowedLoading":false,"userHubsLoading":false,"userInvitationsLoading":false,"route":{}},"viewport":{"prevScrollY":{},"scrollY":0,"width":0},"tracker":{"items":{},"pagesCache":{},"markedViewedSilently":{},"markedRead":{},"unreadCounters":{"applications":null,"system":null,"mentions":null,"subscribers":null,"posts_and_comments":null},"unviewedCounters":{"applications":null,"system":null,"mentions":null,"subscribers":null,"posts_and_comments":null}}};(function(){var s;(s=document.currentScript||document.scripts[document.scripts.length-1]).parentNode.removeChild(s);}());</script>
+<script src="https://assets.habr.com/habr-web/js/chunk-vendors.47cb1c36.js" defer></script><script src="https://assets.habr.com/habr-web/js/app.816a4fc7.js" defer></script>
+
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-726094-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    </script>
+  
+  <script type="text/javascript" >
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(24049213, "init", {
+      defer:true,
+      trackLinks:true,
+      accurateTrackBounce:true,
+      webvisor:false,
+    });
+  </script>
+  <noscript>
+    <div>
+      <img src="https://mc.yandex.ru/watch/24049213" style="position:absolute; left:-9999px;" alt="" />
+    </div>
+  </noscript>
+  
+    <script type="text/javascript">
+      window.addEventListener('load', function () {
+        setTimeout(() => {
+          const img = new Image();
+          img.src = 'https://vk.com/rtrg?p=VK-RTRG-421343-57vKE';
+        }, 0);
+      });
+    </script>
+  
+<script src="/js/ads.js" onload="window['zhY4i4nJ9K'] = true"></script>
+</body>
+</html>
